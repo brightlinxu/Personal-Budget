@@ -1,0 +1,70 @@
+<template>
+  <form @submit.prevent='handleSubmit'>
+    <div>
+      Sign up:
+    </div>
+    <div class='individualContainer'>
+      <label for="firstName">First Name:</label>
+      <input type='text' name='firstName' v-model='firstName' required>
+    </div>
+    <div class='individualContainer'>
+      <label for="lastName">Last Name:</label>
+      <input type='text' name='lastName' v-model='lastName' required>
+    </div>
+    <div class='individualContainer'>
+      <label for="email">Email:</label>
+      <input type='email' name='email' v-model='email' required>
+    </div>
+    <div class='individualContainer'>
+      <label for="password">Password:</label>
+      <input type='password' name='password' v-model='password' required>
+    </div>
+    <button>Sign up</button>
+    <div v-if='error'>{{ error }}</div>
+  </form>
+</template>
+
+<script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const firstName = ref('');
+    const lastName = ref('');
+    const email = ref('');
+    const password = ref('');
+    const error = ref(null);
+    
+    const store = useStore();
+    const router = useRouter();
+
+    const handleSubmit = async () => {
+      try {
+        await store.dispatch('signup', { 
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value, 
+          password: password.value 
+        });
+        router.push('/budget');
+      }
+      catch (err) {
+        error.value = err.message;
+      }
+    }
+
+    return { firstName, lastName, email, password, handleSubmit, error };
+  }
+}
+</script>
+
+<style>
+.individualContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+  margin: 10px;
+}
+</style>
