@@ -46,6 +46,10 @@ export default {
   padding: 5px 10px;
   border: 1px solid lightgrey;
   margin: 1px;
+  cursor: pointer;
+}
+.itemContainer:hover {
+  background-color: rgb(230, 230, 230);
 }
 
 .label {
