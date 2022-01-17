@@ -5,7 +5,7 @@
       <div class='statsContainer'>
         <div class='individualStat'>
           <div class='statLeft'>Left</div>
-          <div class='statRight'>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
+          <div class='statRight' style='color: green;'>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
         </div>
         <div class='individualStat'>
           <div class='statLeft'>Spent</div>
@@ -170,17 +170,20 @@ export default {
   align-items: center;
   width: 280px;
   height: 60px;
+  margin-top: -10px;
 }
 
 .title {
-  margin: 0px 0px 0px -8px;
-  font-size: 30px;
+  margin: -20px 0px 0px -8px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .statsContainer {
   display: flex;
   flex-direction: column;
   align-items: end;
+  margin-right: -8px;
 }
 
 .individualStat {
@@ -191,9 +194,11 @@ export default {
   font-size: 12px;
   margin-right: 5px;
   white-space: nowrap;
+  color: grey;
 }
 .statRight {
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 450;
 }
 
 .overflow-container {
