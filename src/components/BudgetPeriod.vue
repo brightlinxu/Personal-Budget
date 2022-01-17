@@ -1,8 +1,8 @@
 <template>
   <h3>Budget Period:</h3>
-  <button :class='{ activeColor: period === "1w" }' @click='handleClick("1w")'>1 Week</button>
-  <button :class='{ activeColor: period === "2w" }' @click='handleClick("2w")'>2 Weeks</button>
-  <button :class='{ activeColor: period === "1mo" }' @click='handleClick("1mo")'>1 Month</button>
+  <button :class='{ activeColor: period ===  options[0]}' @click='handleClick(options[0])'>1 Week</button>
+  <button :class='{ activeColor: period === options[1] }' @click='handleClick(options[1])'>2 Weeks</button>
+  <button :class='{ activeColor: period === options[2] }' @click='handleClick(options[2])'>1 Month</button>
 </template>
 
 <script>
@@ -14,6 +14,7 @@ export default {
   setup() {
     const store = useStore();
 
+    const options = store.state.options.budgetPeriod;
 
     const handleClick = (e) => {
       updateData(store, { budgetPeriod: e });
@@ -21,7 +22,8 @@ export default {
 
     return {
       handleClick,
-      period: computed(() => store.state.data.budgetPeriod)
+      period: computed(() => store.state.data.budgetPeriod),
+      options
     }
   }
 }

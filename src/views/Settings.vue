@@ -24,8 +24,8 @@ export default {
   setup() {
     const store = useStore();
 
-    const incomeOptions = ['Weekly', 'Biweekly', 'Monthly'];
-    const budgetAreaOptions = ['1 Week', '2 Weeks', '1 Month'];
+    const incomeOptions = store.state.options.incomes;
+    const budgetAreaOptions = store.state.options.budgetAreas;
 
     // watch for change in any store data
     watch(() => store.state.data && [store.state.data.budgetPeriod, store.state.data.yearlyTaxedIncome, store.state.data.budgetAreas], (cur) => {

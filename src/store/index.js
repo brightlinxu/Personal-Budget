@@ -29,6 +29,11 @@ const store = createStore({
     authIsReady: false,
     data: null,
     dataIsReady: false,
+    options: {
+      budgetAreas: ['1 Week', '2 Weeks', '1 Month'],
+      incomes: ['Weekly', 'Biweekly', 'Monthly'],
+      budgetPeriod: ['1w', '2w', '1mo']
+    }
   },
   mutations: { // synchronous code
     setAuthData(state, payload) {

@@ -75,4 +75,54 @@ const getTotalPercent = (store, durOptions) => {
 }
 
 
-export { getIncomeAfterTax, getYearlyIncome, getPercentOfIncome, getBudgetAmountPerYear, getTotalPercent };
+// get total money used in one budget area
+// returns a number (not a string)
+const getBudgetAreaTotalUsed = (spentArray) => {
+  let total = 0;
+  spentArray.forEach((obj) => {
+    total += obj.amount;
+  });
+  return total;
+}
+
+// get total budget amount for one budget area (for current budget period)
+const getBudgetAreaTotalPerPeriod = (area, budgetPeriod, store) => {
+  const budgetAreaOptions = store.state.options.budgetAreas;
+  const budgetPeriodOptions = store.state.options.budgetPeriod;
+  let total = area.amount;
+  
+  // find total per year first
+  if (area.dur === budgetAreaOptions[0]) { // 1 week
+    total *= 52;
+  }
+  else if (area.dur === budgetAreaOptions[1]) { // 2 weeks 
+    total *= 26;
+  }
+  else if (area.dur === budgetAreaOptions[2]) { // 1 month
+    total *= 12;
+  }
+
+  // find total based on budgetPeriod now
+  if (budgetPeriod === budgetPeriodOptions[0]) { // 1w
+    total /= 52;
+  }
+  else if (budgetPeriod === budgetPeriodOptions[1]) { // 2w
+    total /= 26;
+  }
+  else if (budgetPeriod === budgetPeriodOptions[2]) { // 1mo
+    total /= 12;
+  }
+
+  return parseFloat(total.toFixed(2));
+}
+
+
+export { 
+  getIncomeAfterTax, 
+  getYearlyIncome, 
+  getPercentOfIncome, 
+  getBudgetAmountPerYear, 
+  getTotalPercent,
+  getBudgetAreaTotalUsed,
+  getBudgetAreaTotalPerPeriod
+};
