@@ -1,6 +1,6 @@
 <template>
   <div class='itemContainer'>
-    <div>{{ item.label }}</div>
+    <div class='cutOverflow'>{{ item.label }}</div>
     <div>${{ item.amount.toFixed(2) }}</div>
     <!-- <div @click='removeSpentItem' @mouseover='deleteHover = true' @mouseleave='deleteHover = false' class='icon noHighlight'>
       <TrashCanOutline v-if='!deleteHover' :size='20' />
@@ -39,11 +39,20 @@ export default {
 .itemContainer {
   display: flex;
   justify-content: space-between;
-  width: 160px;
+  align-items: center;
+  width: 230px;
   height: 20px;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 5px 10px;
   border: 1px solid lightgrey;
+  margin: 1px;
+}
+
+.label {
+  margin-right: 2px; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon {

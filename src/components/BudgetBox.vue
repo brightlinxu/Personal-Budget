@@ -1,12 +1,17 @@
 <template>
   <div class='container'>
     <div class='topBar'>
-      <div class='title' >{{ area.name }}</div>
+      <div class='title cutOverflow' >{{ area.name }}</div>
       <div class='statsContainer'>
-        <div>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
-        <div>Used {{ Math.ceil(budgetUsed / budgetTotal * 100) }}%</div>
+        <div class='individualStat'>
+          <div class='statLeft'>Left</div>
+          <div class='statRight'>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
+        </div>
+        <div class='individualStat'>
+          <div class='statLeft'>Spent</div>
+          <div class='statRight'>{{ Math.ceil(budgetUsed / budgetTotal * 100) }}%</div>
+        </div>
       </div>
-      <!-- <div @click.prevent='handleUndo' class='undoButton noHighlight'><ArrowULeftTop :size='20'/></div> -->
     </div>
     <form @submit.prevent='handleNewSpentItem'>
       <input :class='{ inputs: true, inputFocused: inputFocused, inputUnfocused: !inputFocused }' 
@@ -20,6 +25,7 @@
         :id='i' :item='elt'
       />
     </div>
+    <div @click.prevent='handleUndo' class='undoButton noHighlight'><ArrowULeftTop :size='20'/></div>
   </div>
 </template>
 
@@ -29,7 +35,7 @@ import { ref, computed } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import SpentItem from './SpentItem.vue';
 import { getBudgetAreaTotalUsed, getBudgetAreaTotalPerPeriod } from '../utilities/calculations.js';
-// import ArrowULeftTop from 'vue-material-design-icons/ArrowULeftTop.vue'
+import ArrowULeftTop from 'vue-material-design-icons/ArrowULeftTop.vue'
 
 export default {
   props: ['id'],
@@ -54,8 +60,8 @@ export default {
         return;
       }
 
-      let label = spent.value.substring(0, separateIndex);
-      let amount = parseFloat(spent.value.substring(separateIndex + 1));
+      let label = spent.value.substring(0, separateIndex).trim();
+      let amount = parseFloat(spent.value.substring(separateIndex + 1).trim());
 
       if (amount.toFixed(2) - amount !== 0 || label === '') {
         console.log('over 2 decimals OR label is empty');
@@ -139,7 +145,7 @@ export default {
     }
   },
   components: {
-    SpentItem, /*ArrowULeftTop*/
+    SpentItem, ArrowULeftTop
   }
 }
 </script>
@@ -150,24 +156,25 @@ export default {
   min-width: 280px;
   width: 280px;
   height: 280px;
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
+  /* box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%); */ /* shadow is only underneath box */
+  box-shadow: 0px 1px 12px rgb(38 96 136 / 20%);
   border-radius: 15px;
   padding: 20px;
-  margin: 1px;
+  margin: 20px;
 }
 
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 200px;
-  height: 40px;
-  margin-top: -15px;
+  width: 280px;
+  height: 60px;
 }
 
 .title {
   margin: 0px 0px 0px -8px;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .statsContainer {
@@ -176,36 +183,38 @@ export default {
   align-items: end;
 }
 
-.undoButton {
-  position: absolute;
-  transform: translate(190px, -20px);
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
-  border-radius: 3px;
+.individualStat {
+  display: flex;
+  align-items: center;
 }
-.undoButton:hover {
-  background-color: #BED8EA;
+.statLeft {
+  font-size: 12px;
+  margin-right: 5px;
+  white-space: nowrap;
+}
+.statRight {
+  font-size: 20px;
 }
 
 .overflow-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 120px;
-  width: 200px;
+  height: 182px;
+  width: 280px;
+  margin-bottom: 10px;
   overflow: scroll;
 }
 .overflow-container::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
+  display: none; /* hide scroll bar for Chrome, Safari, and Opera */
 }
 
 
 .inputUnfocused {
-  width: 170px;
+  width: 230px;
 }
 .inputFocused {
-  width: 130px;
+  width: 190px;
 }
 .addItemButton {
   width: 40px;
@@ -215,8 +224,24 @@ export default {
 .inputs {
   border: none;
   outline: none;
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   height: 25px;
   cursor: pointer;
+  border-radius: 5px;
+}
+.inputs:hover {
+  background-color: #BED8EA;
+}
+
+.undoButton {
+  position: absolute;
+  transform: translate(-145px, 275px);
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.undoButton:hover {
+  background-color: #BED8EA;
 }
 </style>

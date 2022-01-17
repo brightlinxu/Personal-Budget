@@ -14,6 +14,28 @@ export default {
 </script>
 
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  /* text-align: center; */
+  /* color: #2c3e50; */
+}
+
+input {
+  font-family: Avenir;
+}
+button {
+  font-family: Avenir;
+}
+
+.cutOverflow {
+  margin-right: 2px; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .noHighlight {
   user-select: none;
   -moz-user-select: none;
