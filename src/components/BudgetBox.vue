@@ -13,13 +13,16 @@
         </div>
       </div>
     </div>
-    <form @submit.prevent='handleNewSpentItem'>
-      <input :class='{ inputs: true, inputFocused: inputFocused, inputUnfocused: !inputFocused }' 
-        @focus='inputFocused = true' @blur='inputFocused = false' type='text' v-model='spent' 
-        :placeholder='inputFocused ? "ex: no thai $9" : "+ New"' required
-      >
-      <button class='addItemButton' v-if='inputFocused'>add</button>
-    </form>
+    <div :class='{ inputContainer: true, inputContainerColor: spent || inputFocused }' >
+      <form @submit.prevent='handleNewSpentItem'>
+        <input :class='{ inputs: true, inputFocused: spent, inputUnfocused: !spent }' 
+          @focus='inputFocused = true' @blur='inputFocused = false' @mouseover='inputHover = true' @mouseleave='inputHover = false'
+          type='text' v-model='spent' 
+          :placeholder='inputFocused ? "ex: no thai $9" : "+ New"' required
+        >
+        <button class='addItemButton' v-if='spent'>add</button>
+      </form>
+    </div>
     <div class='overflow-container'>
       <SpentItem v-for='(elt, i) in area.spent' :key='i' @removeSpentItem='handleRemoveSpentItem'
         :id='i' :item='elt'
@@ -217,26 +220,47 @@ export default {
 
 .inputUnfocused {
   width: 230px;
+  height: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 .inputFocused {
   width: 190px;
+  height: 20px;
+  padding: 5px 10px;
 }
 .addItemButton {
   width: 40px;
   height: 22px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #002946;
+  font-weight: 550;
+}
+.addItemButton:hover {
+  color: #005FA0;
 }
 
 .inputs {
   border: none;
   outline: none;
-  /* background-color: transparent !important; */
+  background-color: transparent !important;
   height: 25px;
-  cursor: pointer;
   border-radius: 5px;
 }
-.inputs:hover {
-  background-color: #BED8EA;
+.inputContainer {
+  border-radius: 5px;
+  height: 35px;
 }
+.inputContainer:hover {
+  /* background-color: #BED8EA; */
+  background-color: #D0E2EE;
+}
+.inputContainerColor {
+  background-color: #D0E2EE;
+}
+
 
 .undoButton {
   position: absolute;
@@ -247,6 +271,7 @@ export default {
   border-radius: 3px;
 }
 .undoButton:hover {
-  background-color: #BED8EA;
+  /* background-color: #BED8EA; */
+  background-color: #D0E2EE;
 }
 </style>
