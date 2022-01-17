@@ -147,8 +147,9 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  width: 200px;
-  height: 200px;
+  min-width: 300px;
+  width: 300px;
+  height: 300px;
   border: 1px solid lightgrey;
   border-radius: 15px;
   padding: 20px;

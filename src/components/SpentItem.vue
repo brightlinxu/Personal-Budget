@@ -1,17 +1,18 @@
 <template>
-  <div class='item-container'>
-    {{ item.label }} - ${{ item.amount.toFixed(2) }}
-    <div @click='removeSpentItem' @mouseover='deleteHover = true' @mouseleave='deleteHover = false' class='icon noHighlight'>
+  <div class='itemContainer'>
+    <div>{{ item.label }}</div>
+    <div>${{ item.amount.toFixed(2) }}</div>
+    <!-- <div @click='removeSpentItem' @mouseover='deleteHover = true' @mouseleave='deleteHover = false' class='icon noHighlight'>
       <TrashCanOutline v-if='!deleteHover' :size='20' />
       <TrashCan v-else :size='20' />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
-import TrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue';
-import TrashCan from 'vue-material-design-icons/TrashCan.vue';
+// import TrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue';
+// import TrashCan from 'vue-material-design-icons/TrashCan.vue';
 
 export default {
   props: ['id', 'item'],
@@ -29,13 +30,13 @@ export default {
     }
   },
   components: {
-    TrashCanOutline, TrashCan
+    // TrashCanOutline, TrashCan
   }
 }
 </script>
 
 <style scoped>
-.item-container {
+.itemContainer {
   display: flex;
   justify-content: space-between;
   width: 160px;
