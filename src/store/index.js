@@ -103,6 +103,7 @@ const unsub = onAuthStateChanged(auth, (authData) => {
   store.commit('setAuthData', authData);
   store.commit('setAuthIsReady', true);
   store.commit('setDataIsReady', false);
+  let url = window.location.pathname;
   if (authData) { // user is logged in
     onSnapshot(doc(db, 'users', authData.uid), (snapshot) => {
       store.commit('setData', snapshot.data(), false);
@@ -110,12 +111,15 @@ const unsub = onAuthStateChanged(auth, (authData) => {
     });
     
     // redirect user to '/budget'
-    router.push('/budget');
-    console.log('pushed to /budget');
+    if (url === '/') {
+      router.push('/budget');
+    }
   }
   else { // user is not logged in
     // redirect user to '/'
-    router.push('/');
+    if (url !== '/') {
+      router.push('/');
+    }
   }
   unsub();
 });
