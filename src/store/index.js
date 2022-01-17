@@ -7,6 +7,7 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
+import router from '../router'
 
 /*
 what's in each object:
@@ -102,11 +103,19 @@ const unsub = onAuthStateChanged(auth, (authData) => {
   store.commit('setAuthData', authData);
   store.commit('setAuthIsReady', true);
   store.commit('setDataIsReady', false);
-  if (authData) {
+  if (authData) { // user is logged in
     onSnapshot(doc(db, 'users', authData.uid), (snapshot) => {
       store.commit('setData', snapshot.data(), false);
       store.commit('setDataIsReady', true);
     });
+    
+    // redirect user to '/budget'
+    router.push('/budget');
+    console.log('pushed to /budget');
+  }
+  else { // user is not logged in
+    // redirect user to '/'
+    router.push('/');
   }
   unsub();
 });
