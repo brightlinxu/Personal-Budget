@@ -90,7 +90,7 @@ export default {
       // add action into undo array
       addToUndoStack({
         label: area.value.spent[id].label, 
-        amount: parseFloat(area.value.spent[id].amount).toFixed(2),
+        amount: area.value.spent[id].amount,
         index: id,
         action: 'r'
       });
@@ -104,7 +104,6 @@ export default {
 
     // UNDO stuff
     const handleUndo = () => {
-      console.log('undo');
       const undoObj = area.value.undoStack.shift();
       if (undoObj) {
         // there's something to undo
@@ -212,6 +211,7 @@ export default {
   width: 280px;
   margin-bottom: 10px;
   overflow: scroll;
+  transition: 0.2s linear;
 }
 .overflow-container::-webkit-scrollbar {
   display: none; /* hide scroll bar for Chrome, Safari, and Opera */
