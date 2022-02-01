@@ -85,6 +85,7 @@ const getBudgetAreaTotalUsed = (spentArray) => {
   return total;
 }
 
+// ! TEMPORARILY NOT USING THIS FUNCTION
 // get total budget amount for one budget area (for current budget period)
 const getBudgetAreaTotalPerPeriod = (area, budgetPeriod, store) => {
   const budgetAreaOptions = store.state.options.budgetAreas;
@@ -117,6 +118,75 @@ const getBudgetAreaTotalPerPeriod = (area, budgetPeriod, store) => {
 }
 
 
+const getDate = () => {
+  let date = {};
+  [date.month, date.day, date.year] = new Date().toLocaleString().split('/');
+  date.year = date.year.split(',')[0];
+  date.day = parseFloat(date.day);
+  date.month = parseFloat(date.month);
+  date.year = parseFloat(date.year);
+
+  return date;
+}
+
+
+// get difference in 2 dates
+const getDateDifference = (date1, date2) => 
+{
+  let daysOffset = Math.floor(dateDifferenceHelper(date1.year, date1.month, date1.day));
+  let daysOffset2 = Math.floor(dateDifferenceHelper(date2.year, date2.month, date2.day));
+
+  return daysOffset2 - daysOffset;
+}
+const dateDifferenceHelper = (year, month, day) => 
+{
+  const daysUpToMonth = [ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 ];
+  const daysUpToMonthLeapYear = [ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 ];
+
+  if (isLeapYear(year))
+  {
+    year--;
+    let numOfLeapsYear = Math.floor(year / 4 - year / 100 + year / 400);
+    return year * 365 + numOfLeapsYear + daysUpToMonthLeapYear[month - 1] + day - 1;
+  }
+  else
+  {
+    year--;
+    let numOfLeapsYear = Math.floor(year / 4 - year / 100 + year / 400);
+    return year * 365 + numOfLeapsYear + daysUpToMonth[month - 1] + day - 1;
+  }
+}
+const isLeapYear = (year) => {
+  return (year % 4 == 0) && ( (year % 100 != 0) || (year % 400 == 0) );
+}
+
+
+const getFirstDayOfWeek = (startDate, days) => {
+  let date = new Date(startDate.year, startDate.month - 1, startDate.day);
+  let tempDate = {};
+  let newDate = {};
+  do {
+    // set new date (for returning)
+    newDate = {...tempDate}; 
+    // test date one week after
+    let temp = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000)); // get date 1 week later
+    tempDate.day = temp.getDate();
+    tempDate.month = temp.getMonth() + 1;
+    tempDate.year = temp.getFullYear();
+    date = temp;
+  } while (getDateDifference(tempDate, getDate()) >= 0);
+  return newDate;
+}
+const getFirstDayOfMonth = () => {
+  let date = new Date();
+  return {
+    day: 1,
+    month: date.getMonth() + 1,
+    year: date.getFullYear()
+  }
+}
+
+
 export { 
   getIncomeAfterTax, 
   getYearlyIncome, 
@@ -124,5 +194,9 @@ export {
   getBudgetAmountPerYear, 
   getTotalPercent,
   getBudgetAreaTotalUsed,
-  getBudgetAreaTotalPerPeriod
+  getBudgetAreaTotalPerPeriod,
+  getDate,
+  getDateDifference,
+  getFirstDayOfWeek,
+  getFirstDayOfMonth,
 };

@@ -18,21 +18,41 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import BudgetArea from './BudgetArea.vue';
-import { getTotalPercent } from '../utilities/calculations.js';
+import { getTotalPercent, getFirstDayOfWeek, getFirstDayOfMonth } from '../utilities/calculations.js';
 
 export default {
   props: ['durOptions'],
   setup(props) {
     const store = useStore();
+    const FIRSTMONDAY = {
+      month: 1,
+      day: 3,
+      year: 2022
+    }
 
     const handleBudgetAreasSave = () => {
+      // update all start dates
+      const temp = store.state.data;
+      temp.budgetAreas.forEach((elt, i, arr) => {
+        if (elt.dur === store.state.options.budgetAreas[0]) {
+          arr[i].startDate = getFirstDayOfWeek(FIRSTMONDAY, 7);
+        }
+        else if (elt.dur === store.state.options.budgetAreas[1]) {
+          arr[i].startDate = getFirstDayOfWeek(FIRSTMONDAY, 14);
+        }
+        else if (elt.dur === store.state.options.budgetAreas[2]) {
+          arr[i].startDate = getFirstDayOfMonth();
+        }
+      });
+      store.commit('setData', temp)
+
       // update database
       updateData(store, store.state.data);  
     }
 
     const handleAddArea = () => {
       const temp = store.state.data;
-      temp.budgetAreas.push({amount: null, name: null});
+      temp.budgetAreas.push({amount: null, name: null, spent: [], undoStack: [], startDate: null});
       store.commit('setData', temp);
     }
     const handleRemoveArea = (areaid) => {

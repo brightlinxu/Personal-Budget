@@ -28,16 +28,17 @@
         :id='i' :item='elt'
       />
     </div>
+    <div class='daysLeftText'>{{ timeUntilReset }} day{{ timeUntilReset === 1 ? '' : 's' }} left</div>
     <div @click.prevent='handleUndo' class='undoButton noHighlight'><ArrowULeftTop :size='20'/></div>
   </div>
 </template>
 
 <script>
 import { useStore } from 'vuex';
-import { ref, computed } from 'vue';
+import { ref, computed, onUpdated, onMounted } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import SpentItem from './SpentItem.vue';
-import { getBudgetAreaTotalUsed, getBudgetAreaTotalPerPeriod } from '../utilities/calculations.js';
+import { getBudgetAreaTotalUsed, getDate, getDateDifference, getFirstDayOfWeek, getFirstDayOfMonth /*getBudgetAreaTotalPerPeriod*/ } from '../utilities/calculations.js';
 import ArrowULeftTop from 'vue-material-design-icons/ArrowULeftTop.vue'
 
 export default {
@@ -134,6 +135,107 @@ export default {
       area.value.undoStack.unshift(obj);
     }
 
+    // const tempDate = {month: 2, day: 14, year: 2022}
+    const checkDate = () => {
+      if (area.value.dur === store.state.options.budgetAreas[0]) { // 1 week period
+        if (getDateDifference(area.value.startDate, getDate()) >= 7) {
+          // reset 1 week
+          const newDate = getFirstDayOfWeek(area.value.startDate, 7);
+          pushDataToHistory(area.value.startDate, newDate);
+        } 
+      }
+      else if (area.value.dur === store.state.options.budgetAreas[1]) { // 2 week period
+        if (getDateDifference(area.value.startDate, getDate()) >= 14) {
+          // reset 2 week
+          const newDate = getFirstDayOfWeek(area.value.startDate, 14);
+          pushDataToHistory(area.value.startDate, newDate);
+        }
+      }
+      else if (area.value.dur === store.state.options.budgetAreas[2]) { // 1 month period
+        if (getDate().month !== area.value.startDate.month || getDate().year !== area.value.startDate.year) {
+          // reset 1 month
+          const newDate = getFirstDayOfMonth();
+          pushDataToHistory(area.value.startDate, newDate);
+        }
+      }
+    }
+    const pushDataToHistory = (startDate, newDate) => {
+      // find taxedIncome for budgetPeriod
+      let budgetAreaPeriodIncome = store.state.data.yearlyTaxedIncome;
+      if (area.value.dur === store.state.options.budgetAreas[0]) {
+        budgetAreaPeriodIncome /= 52;
+      } 
+      else if (area.value.dur === store.state.options.budgetAreas[1]) {
+        budgetAreaPeriodIncome /= 26;
+      } 
+      else if (area.value.dur === store.state.options.budgetAreas[2]) {
+        budgetAreaPeriodIncome /= 12;
+      } 
+
+      // create history object
+      let historyObj = {
+        name: area.value.name,
+        startDate: startDate,
+        endDate: newDate,
+        dur: area.value.dur,
+        incomeDuringPeriod: budgetAreaPeriodIncome,
+        spent: [...area.value.spent],  
+      };
+      // push object into history array
+      const temp = store.state.data;
+      temp.history.push(historyObj);
+      store.commit('setData', temp);
+      
+      // clear spent and undoStack array
+      area.value.spent = [];
+      area.value.undoStack = [];
+
+      // set new date
+      area.value.startDate = newDate;
+
+      // update data in database
+      updateData(store, store.state.data);
+    }
+
+    onMounted(() => {
+      checkDate();
+    })
+    onUpdated(() => {
+      checkDate();
+    })
+
+    const getNextDate = () => {
+      let startDate = new Date(area.value.startDate.year, area.value.startDate.month - 1, area.value.startDate.day);
+      let nextDate = null;
+      if (area.value.dur === store.state.options.budgetAreas[0]) {
+        const DAYS = 7;
+        nextDate = new Date(startDate.getTime() + (DAYS * 24 * 60 * 60 * 1000));
+        
+      }
+      else if (area.value.dur === store.state.options.budgetAreas[1]) {
+        const DAYS = 14;
+        nextDate = new Date(startDate.getTime() + (DAYS * 24 * 60 * 60 * 1000));
+      }
+      else if (area.value.dur === store.state.options.budgetAreas[2]) {
+        nextDate = {
+          day: 1,
+          month: area.value.startDate.month + 1,
+          year: area.value.startDate.year
+        }
+        if (nextDate.month === 12) {
+          nextDate.month = 1;
+          nextDate.year += 1;
+        }
+        return nextDate;
+      }
+      
+      return {
+        day: nextDate.getDate(),
+        month: nextDate.getMonth() + 1,
+        year: nextDate.getFullYear()
+      }
+    }
+
 
     return {
       area,
@@ -143,7 +245,8 @@ export default {
       handleRemoveSpentItem,
       handleUndo,
       budgetUsed: computed(() => getBudgetAreaTotalUsed(area.value.spent)),
-      budgetTotal: computed(() => getBudgetAreaTotalPerPeriod(area.value, store.state.data.budgetPeriod, store))
+      budgetTotal: computed(() => area.value.amount /*getBudgetAreaTotalPerPeriod(area.value, store.state.data.budgetPeriod, store)*/),
+      timeUntilReset: computed(() => getDateDifference(getDate(), getNextDate()))
     }
   },
   components: {
@@ -208,9 +311,10 @@ export default {
   flex-direction: column;
   align-items: center;
   height: 182px;
-  width: 280px;
-  margin-bottom: 10px;
-  overflow: scroll;
+  width: 252px;
+  margin-bottom: 8px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   transition: 0.2s linear;
 }
 .overflow-container::-webkit-scrollbar {
@@ -259,6 +363,13 @@ export default {
 }
 .inputContainerColor {
   background-color: #D0E2EE;
+}
+
+.daysLeftText {
+  font-size: 14px;
+  font-weight: 200;
+  margin-left: 215px;
+  margin-right: -20px;
 }
 
 

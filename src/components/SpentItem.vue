@@ -45,7 +45,7 @@ export default {
   border: 1px solid lightgrey;
   margin: 1px;
   cursor: pointer;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .itemContainer:hover {
   background-color: rgb(241, 241, 241);
@@ -54,7 +54,7 @@ export default {
 .itemRightContainer {
   display: flex;
   align-items: center;
-  height: 30px; 
+  height: 30px;
   transition: 0.08s linear;
 }
 .rightBefore {
@@ -63,7 +63,7 @@ export default {
 
 .delete {
   padding: 5px 7px;
-  margin: 0px -10px 0px 10px;
+  margin: 0px -12px 0px 10px;
   border-radius: 0px 6px 6px 0px;
   position: relative;
   background-color: red;
