@@ -45,6 +45,7 @@ export default {
   border: 1px solid lightgrey;
   margin: 1px;
   cursor: pointer;
+  background-color: white;
   /* overflow: hidden; */
 }
 .itemContainer:hover {

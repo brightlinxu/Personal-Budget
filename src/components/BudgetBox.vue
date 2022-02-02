@@ -1,11 +1,16 @@
 <template>
-  <div class='container'>
+  <div :class='{container: true, noHighlight: true, containerSpentOver: budgetTotal - budgetUsed < 0}'>
     <div class='topBar'>
       <div class='title cutOverflow' >{{ area.name }}</div>
       <div class='statsContainer'>
         <div class='individualStat'>
           <div class='statLeft'>Left</div>
-          <div class='statRight' style='color: green;'>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
+          <div :class='{
+            statRight: true, 
+            green: budgetTotal - budgetUsed >= 0.5 * budgetTotal, 
+            orange: budgetTotal - budgetUsed >= 0.2 * budgetTotal && budgetTotal - budgetUsed < 0.5 * budgetTotal,
+            red: budgetTotal - budgetUsed < 0.2 * budgetTotal
+          }'>${{ (budgetTotal - budgetUsed).toFixed(2) }}</div>
         </div>
         <div class='individualStat'>
           <div class='statLeft'>Spent</div>
@@ -18,7 +23,7 @@
         <input :class='{ inputs: true, inputFocused: spent, inputUnfocused: !spent }' 
           @focus='inputFocused = true' @blur='inputFocused = false' @mouseover='inputHover = true' @mouseleave='inputHover = false'
           type='text' v-model='spent' 
-          :placeholder='inputFocused ? "ex: no thai $9" : "+ New"' required
+          :placeholder='inputFocused ? "ex: no thai $9" : (budgetTotal - budgetUsed < 0 ? "YOU SPENT TOO MUCH!" : "+ New")' required
         >
         <button class='addItemButton' v-if='spent'>add</button>
       </form>
@@ -29,7 +34,7 @@
       />
     </div>
     <div class='daysLeftText'>{{ timeUntilReset }} day{{ timeUntilReset === 1 ? '' : 's' }} left</div>
-    <div @click.prevent='handleUndo' class='undoButton noHighlight'><ArrowULeftTop :size='20'/></div>
+    <div @click.prevent='handleUndo' class='undoButton'><ArrowULeftTop :size='20'/></div>
   </div>
 </template>
 
@@ -268,6 +273,9 @@ export default {
   padding: 20px;
   margin: 20px;
 }
+.containerSpentOver {
+  background-color: rgba(255, 0, 0, 0.178);
+}
 
 .topBar {
   display: flex;
@@ -304,6 +312,16 @@ export default {
 .statRight {
   font-size: 18px;
   font-weight: 450;
+}
+
+.green {
+  color: green;
+}
+.orange {
+  color: orange;
+}
+.red {
+  color: red;
 }
 
 .overflow-container {
