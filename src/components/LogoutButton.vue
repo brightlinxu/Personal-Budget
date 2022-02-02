@@ -1,5 +1,5 @@
 <template>
-  <button @click='handleClick'>Logout</button>
+  <div @click='handleClick' class='buttonStyle' style='margin: 0px 3px;'>Logout</div>
 </template>
 
 <script>

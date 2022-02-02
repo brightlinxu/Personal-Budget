@@ -117,7 +117,7 @@ const unsub = onAuthStateChanged(auth, (authData) => {
   }
   else { // user is not logged in
     // redirect user to '/'
-    if (url !== '/') {
+    if (url !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
       router.push('/');
     }
   }

@@ -27,6 +27,28 @@ input {
 }
 button {
   font-family: Avenir;
+  background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.buttonStyle {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.buttonStyle:hover {
+  background-color: #D0E2EE;
 }
 
 .cutOverflow {

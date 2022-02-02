@@ -1,13 +1,13 @@
 <template>
   <div class='container'>
-    <a @click='handleRedirectHome'>Home</a>
+    <a @click='handleRedirectHome' class='buttonStyle'>Home</a>
     <div v-if='authIsReady && !authData' class='rightSide'> <!-- not logged in -->
       <LoginButton />
       <SignupButton />
     </div>
     <div v-else class='rightSide'> <!-- logged in -->
-      <div v-if='dataIsReady && data'>Hi {{ data.firstName }}!</div>
-      <div @click='handleRedirectSettings' style='margin: 0px 20px'>Settings</div>
+      <div v-if='dataIsReady && data' style='margin: 5px 13px;'>Hi {{ data.firstName }}!</div>
+      <div @click='handleRedirectSettings' class='buttonStyle' style='margin: 0px 3px;'>Settings</div>
       <LogoutButton />
     </div>
     
@@ -32,8 +32,10 @@ export default {
         // not logged in
         router.push('/');
       }
-      // is logged in
-      router.push('/budget');
+      else {
+        // is logged in
+        router.push('/budget');
+      }
     }
 
     const handleRedirectSettings = () => {
@@ -60,7 +62,7 @@ export default {
 .container {
   display: flex;
   justify-content: space-between;
-  margin: 25px 12px;
+  margin: 20px 12px;
 }
 
 .rightSide {

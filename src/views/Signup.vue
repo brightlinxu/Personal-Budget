@@ -1,8 +1,6 @@
 <template>
   <form @submit.prevent='handleSubmit'>
-    <div>
-      Sign up:
-    </div>
+    <h2>Sign Up</h2>
     <div class='individualContainer'>
       <label for="firstName">First Name:</label>
       <input type='text' name='firstName' v-model='firstName' required>
@@ -19,7 +17,7 @@
       <label for="password">Password:</label>
       <input type='password' name='password' v-model='password' required>
     </div>
-    <button>Sign up</button>
+    <button class='buttonStyle' style='margin: 20px 90px;'>Sign up</button>
     <div v-if='error'>{{ error }}</div>
   </form>
 </template>

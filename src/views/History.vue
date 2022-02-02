@@ -1,6 +1,6 @@
 <template>
-  <div>history page</div>
-  <a href="/epic">link</a>
+  <h1>History page</h1>
+  <div>This page is currently in development</div>
 </template>
 
 <script>

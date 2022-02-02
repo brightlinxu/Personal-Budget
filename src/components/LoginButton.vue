@@ -1,5 +1,5 @@
 <template>
-  <button @click='handleClick'>Login</button>
+  <div @click='handleClick' class='buttonStyle' style='margin: 0px 3px;'>Login</div>
 </template>
 
 <script>
