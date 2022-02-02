@@ -1,5 +1,4 @@
 <template>
-  <div>Home page (Budget.vue)</div>
   <div v-if='store.authIsReady && store.dataIsReady'>
     <BudgetBoxes />
   </div>
