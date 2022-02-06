@@ -354,7 +354,6 @@ export default {
 .addItemButton {
   width: 40px;
   height: 22px;
-  margin-right: 1px;
   cursor: pointer;
   border: none;
   background-color: transparent;
