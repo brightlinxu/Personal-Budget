@@ -354,11 +354,13 @@ export default {
 .addItemButton {
   width: 40px;
   height: 22px;
+  margin-right: 1px;
   cursor: pointer;
   border: none;
   background-color: transparent;
   color: #002946;
   font-weight: 550;
+  font-size: 14px;
 }
 .addItemButton:hover {
   color: #005FA0;
