@@ -51,6 +51,22 @@ button {
   background-color: #D0E2EE;
 }
 
+.buttonStyle2 {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #D0E2EE;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.buttonStyle2:hover {
+  background-color: #bbccd8;
+}
+
 .cutOverflow {
   margin-right: 2px; 
   overflow: hidden; 
