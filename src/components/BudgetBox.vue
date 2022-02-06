@@ -19,7 +19,7 @@
       </div>
     </div>
     <div :class='{ inputContainer: true, inputContainerColor: spent || inputFocused }' >
-      <form @submit.prevent='handleNewSpentItem'>
+      <form @submit.prevent='handleNewSpentItem' style='display: flex; align-items: center;'>
         <input :class='{ inputs: true, inputFocused: spent, inputUnfocused: !spent }' 
           @focus='inputFocused = true' @blur='inputFocused = false' @mouseover='inputHover = true' @mouseleave='inputHover = false'
           type='text' v-model='spent' 
