@@ -5,13 +5,22 @@
       <div class='buttonStyle' style='width: 51px;'>History</div>
     </div>
   </div>
+  <div v-else class='loadingContainer'>
+    <lottie-animation
+      path='./loadingAnimation.json'
+      :speed=1
+      :width=1000
+      :height=470
+    />
+  </div>
 </template>
 
 <script>
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-// import { computed } from 'vue';
+import { computed } from 'vue';
 import BudgetBoxes from '../components/BudgetBoxes.vue';
+import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
 export default {
   setup() {
@@ -23,12 +32,12 @@ export default {
     }
 
     return { 
-      store: store.state,
+      store: computed(() => store.state),
       redirectHistory
     };
   },
   components: {
-    BudgetBoxes
+    BudgetBoxes, LottieAnimation
   }
 }
 </script>

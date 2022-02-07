@@ -26,6 +26,7 @@ data: {
 
 const store = createStore({
   state: {
+    reroutedPage: false,
     authData: null,
     authIsReady: false,
     data: null,
@@ -37,6 +38,10 @@ const store = createStore({
     }
   },
   mutations: { // synchronous code
+    setReroutedPage(state, payload) {
+      state.reroutedPage = payload;
+      console.log('state.reroutedPage changed: ', payload);
+    },
     setAuthData(state, payload) {
       state.authData = payload;
       console.log('state.authData changed: ', payload);
@@ -121,6 +126,7 @@ const unsub = onAuthStateChanged(auth, (authData) => {
       router.push('/');
     }
   }
+  
   unsub();
 });
 
