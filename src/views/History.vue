@@ -1,51 +1,59 @@
 <template>
   <h1>Spent History</h1>
-  <div v-for='(elt, i) in history_arr' :key='i'>
-    {{ elt }}
+  <div v-if='historyArr.length > 0'>
+    <div class='spentContainer' v-for='(elt, i) in historyArr' :key='i'>
+      <h3>
+        {{ getMonthYearFromNum(elt[0]) }} {{ i === 0 ? '(in progress...)' : '' }}
+      </h3>
+      <div class='spentText'>Total Spent - ${{ elt[1].toFixed(2) }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { useStore } from 'vuex';
-import { watch, ref } from 'vue';
-// import { getMonthFromNum } from '../utilities/calculations.js'
+import { computed } from 'vue';
+import { getMonthYearFromNum } from '../utilities/calculations.js'
 
 export default {
   setup() {
     const store = useStore();
 
-    const history_obj = ref({});
-    const history_arr = ref([])
-
-    watch(() => store.state.data && store.state.data.history, (cur) => {
+    const getHistoryArr = () => {
       if (store.state.data) {
-        cur.forEach((elt) => {
-          const year_month = `${elt.startDate.year} ${elt.startDate.month}`;
+        let historyObj = {};
+        store.state.data.history.forEach((elt) => {
+          const yearMonth = `${elt.startDate.year} ${elt.startDate.month}`;
           const sum = elt.spent.reduce((partial, cur) => {
             return partial + cur.amount;
           }, 0);
-          if (year_month in history_obj.value) {
-            history_obj.value[year_month] += sum;
+          if (yearMonth in historyObj) {
+            historyObj[yearMonth] += sum;
           }
           else {
-            history_obj.value[year_month] = sum
+            historyObj[yearMonth] = sum
           }
-          console.log(history_obj.value)
         });
-
-        history_arr.value = Object.keys(history_obj.value).map((key) => [key, history_obj.value[key]]);
-        history_arr.value.sort().reverse()
-        console.log(history_arr.value)
+  
+        return Object.keys(historyObj).map((key) => [key, historyObj[key]]).sort().reverse()
       }
-    });
+      return [];
+    }
+
 
     return {
-      history_arr
+      historyArr: computed(() => getHistoryArr()),
+      getMonthYearFromNum
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.spentContainer {
+  margin: 40px 0px;
+}
+.spentText {
+  margin-left: 10px;
+}
 </style>
