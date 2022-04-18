@@ -4,7 +4,7 @@
   <input type='number' step='0.01' v-model='area.amount' placeholder='amount' @keydown="handleKeyDown" required>
   <div>percent of income: {{ percent }}%</div>
   <div>
-    <button @click='removeArea' class="buttonStyle">Remove</button>
+    <button @click='removeArea' class="buttonStyle2">Remove</button>
   </div>
 </template>
 

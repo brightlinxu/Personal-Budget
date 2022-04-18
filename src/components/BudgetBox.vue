@@ -272,6 +272,7 @@ export default {
   border-radius: 15px;
   padding: 20px;
   margin: 20px;
+  background-color: white;
 }
 .containerSpentOver {
   background-color: rgba(255, 0, 0, 0.178);

@@ -79,7 +79,7 @@ export default {
 }
 
 .sizeContainer {
-  width: 800px;
+  width: 1200px;
 }
 
 .childContainer {
@@ -87,6 +87,6 @@ export default {
   margin: 30px;
   align-items: start;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 </style>

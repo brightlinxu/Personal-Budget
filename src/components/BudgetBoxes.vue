@@ -6,7 +6,7 @@
       :id='i'
     />
   </div>
-  <div v-else class='container'>
+  <div v-else class='noBudgetsContainer'>
     <div>
       You have no budget categories at the moment!
     </div>
@@ -46,6 +46,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.noBudgetsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button-inline-text {

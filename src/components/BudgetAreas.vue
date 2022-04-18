@@ -1,14 +1,14 @@
 <template>
   <div class="budgetAreasContainer">
     <h3>Budget Areas:</h3>
-    <button @click='handleAddArea' class="buttonStyle">Add Budget Area</button>
+    <button @click='handleAddArea' class="buttonStyle2">Add Budget Area</button>
     <br />
     <br />
     <form @submit.prevent='handleBudgetAreasSave'>
       <BudgetArea v-for='(elt, i) in store.data.budgetAreas' :key='i'
         :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
       />
-      <button class="buttonStyle">Save</button>
+      <button class="buttonStyle2">Save</button>
     </form>
   </div>
 <!--  <div>total percentage of income used: {{ totalPercent }}%</div>-->
@@ -84,7 +84,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: start !important;
-  width: 300px;
+  width: 280px;
   margin: 20px;
 }
 </style>

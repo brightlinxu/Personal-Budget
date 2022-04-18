@@ -80,7 +80,8 @@ export default {
   color: #333;
 }
 .fixedContainerAfterScroll {
-  background-color: rgba(250, 250, 250, 0.95);
+  background-color: rgba(256, 256, 256, 0.95);
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
 }
 
 .nav-bar-container {

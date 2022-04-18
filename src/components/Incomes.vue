@@ -1,14 +1,16 @@
 <template>
   <div class="incomesContainer">
     <h3>Incomes:</h3>
-    <button @click='handleAddIncome' class="buttonStyle">Add Income Source</button>
+    <button @click='handleAddIncome' class="buttonStyle2">Add Income Source</button>
     <br />
     <br />
     <form @submit.prevent='handleIncomesSave'>
-      <Income v-for='(elt, i) in store.data.incomes' :key='i'
-        :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
-      />
-      <button class="buttonStyle">Save</button>
+      <div class="incomeContainer incomeContainerNumContains">
+        <Income v-for='(elt, i) in store.data.incomes' :key='i'
+          :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
+        />
+      </div>
+      <button class="buttonStyle2">Save</button>
     </form>
   </div>
 </template>
@@ -53,7 +55,7 @@ export default {
 
     const handleAddIncome = () => {
       const temp = store.state.data;
-      temp.incomes.push({amount: null, freq: null});
+      temp.incomes.push({name: null, amount: null, freq: null});
       store.commit('setData', temp);
     }
     const handleRemoveIncome = (incomeid) => {
@@ -79,8 +81,34 @@ export default {
 .incomesContainer {
   display: flex;
   flex-direction: column;
-  align-items: start !important;
-  width: 300px;
+  align-items: start;
+  min-width: 280px;
   margin: 20px;
+}
+
+.incomeContainer {
+  display: grid;
+  row-gap: 20px;
+  column-gap: 20px;
+}
+@media only screen and (max-width: 550px) {
+  .incomeContainerNumContains {
+    grid-template-columns: repeat(1, minmax(0, 100vw));
+  }
+}
+@media only screen and (min-width: 550px) and (max-width: 820px) {
+  .incomeContainerNumContains {
+    grid-template-columns: repeat(2, minmax(0, 100vw));
+  }
+}
+@media only screen and (min-width: 820px) and (max-width: 1100px) {
+  .incomeContainerNumContains {
+    grid-template-columns: repeat(3, minmax(0, 100vw));
+  }
+}
+@media only screen and (min-width: 1100px) {
+  .incomeContainerNumContains {
+    grid-template-columns: repeat(4, minmax(0, 100vw));
+  }
 }
 </style>

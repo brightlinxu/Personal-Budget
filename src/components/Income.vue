@@ -1,8 +1,13 @@
 <template>
-  <Dropdown :options='freqOptions' :defaultText='income.freq ? income.freq : "Income Frequency"' @optionClicked='freqOptionClicked'/>
-  <input type='number' step='0.01' v-model='income.amount' placeholder='amount' @keydown="handleKeyDown" required>
-  <div>
-    <button @click='removeIncome' class="buttonStyle">Remove</button>
+  <div class="individualIncomeContainerSize">
+    <div class="individualIncomeContainer">
+      <Dropdown :options='freqOptions' :defaultText='income.freq ? income.freq : "Income Frequency"' @optionClicked='freqOptionClicked'/>
+      <input type='text' v-model='income.name' placeholder='Name' required>
+      <input type='number' step='0.01' v-model='income.amount' placeholder='Amount' @keydown="handleKeyDown" required>
+      <div>
+        <button @click='removeIncome' class="buttonStyle2">Remove</button>
+      </div>
+  </div>
   </div>
 </template>
 
@@ -51,6 +56,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.individualIncomeContainerSize {
+  width: 100%;
+}
 
+.individualIncomeContainer {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 4px rgb(38 96 136 / 20%);
+  border-radius: 8px;
+  padding: 20px;
+}
 </style>
