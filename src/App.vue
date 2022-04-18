@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  <router-view /> 
+  <router-view />
 </template>
 
 <script>
@@ -26,6 +26,10 @@ export default {
   /* color: #2c3e50; */
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
 input {
   font-family: Avenir;
 }
@@ -50,9 +54,13 @@ button {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  transition: 0.15s;
 }
 .buttonStyle:hover {
   background-color: #D0E2EE;
+}
+.buttonStyle:active {
+  background-color: #bbccd8;
 }
 
 .buttonStyle2 {
