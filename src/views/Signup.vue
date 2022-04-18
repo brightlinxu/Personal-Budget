@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -52,6 +52,10 @@ export default {
         error.value = err.message;
       }
     }
+
+    onMounted(() => {
+      document.title = 'Signup - Budget';
+    });
 
     return { firstName, lastName, email, password, handleSubmit, error };
   }

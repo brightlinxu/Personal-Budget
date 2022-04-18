@@ -18,7 +18,7 @@
 <script>
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import BudgetBoxes from '../components/BudgetBoxes.vue';
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
@@ -30,6 +30,10 @@ export default {
     const redirectHistory = () => {
       router.push('history');
     }
+
+    onMounted(() => {
+      document.title = 'Home - Budget';
+    });
 
     return { 
       store: computed(() => store.state),

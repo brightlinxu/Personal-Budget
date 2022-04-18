@@ -12,7 +12,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { getMonthYearFromNum } from '../utilities/calculations.js'
 
 export default {
@@ -39,6 +39,10 @@ export default {
       }
       return [];
     }
+
+    onMounted(() => {
+      document.title = 'History - Budget';
+    });
 
 
     return {

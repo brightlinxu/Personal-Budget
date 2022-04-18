@@ -10,11 +10,15 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 
 export default {
   setup() {
     const store = useStore();
+
+    onMounted(() => {
+      document.title = 'Budget';
+    });
 
     return {
       store: computed(() => store.state)

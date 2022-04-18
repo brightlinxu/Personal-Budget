@@ -13,7 +13,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed, watch } from 'vue';
+import { computed, watch, onMounted } from 'vue';
 import Incomes from '../components/Incomes.vue';
 import BudgetPeriod from '../components/BudgetPeriod.vue';
 import BudgetAreas from '../components/BudgetAreas.vue';
@@ -48,6 +48,10 @@ export default {
           budget: totalBudget,
         });
       }
+    });
+
+    onMounted(() => {
+      document.title = 'Settings - Budget';
     });
 
 
