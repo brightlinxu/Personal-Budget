@@ -1,7 +1,9 @@
 <template>
   <Dropdown :options='freqOptions' :defaultText='income.freq ? income.freq : "Income Frequency"' @optionClicked='freqOptionClicked'/>
   <input type='number' step='0.01' v-model='income.amount' placeholder='amount' @keydown="handleKeyDown" required>
-  <div @click='removeIncome'>Remove</div>
+  <div>
+    <button @click='removeIncome' class="buttonStyle">Remove</button>
+  </div>
 </template>
 
 <script>

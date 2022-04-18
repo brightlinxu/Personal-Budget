@@ -1,14 +1,16 @@
 <template>
-  <h3>Incomes:</h3>
-  <button @click='handleAddIncome'>Add Income Source</button>
-  <br />
-  <br />
-  <form @submit.prevent='handleIncomesSave'>
-    <Income v-for='(elt, i) in store.data.incomes' :key='i'
-      :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
-    />
-    <button>Save</button>
-  </form>
+  <div class="container">
+    <h3>Incomes:</h3>
+    <button @click='handleAddIncome' class="buttonStyle">Add Income Source</button>
+    <br />
+    <br />
+    <form @submit.prevent='handleIncomesSave'>
+      <Income v-for='(elt, i) in store.data.incomes' :key='i'
+        :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
+      />
+      <button class="buttonStyle">Save</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -73,6 +75,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: start !important;
+}
 </style>

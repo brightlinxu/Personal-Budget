@@ -1,14 +1,16 @@
 <template>
-  <div v-if='store.authIsReady && store.dataIsReady'>
-    <h1>Settings:</h1>
-<!--    <BudgetPeriod />-->
-<!--    <br />-->
-    <Incomes :freqOptions='incomeOptions'/>
-    <br />
-    <BudgetAreas :durOptions='budgetAreaOptions'/>
-    <br />
-    <div>total percentage of income used: {{ totalPercent }}%</div>
-<!--    <div>income after tax for current budget period: ${{ store.data.incomeForPeriod }}</div>-->
+  <div class="container">
+    <div v-if='store.authIsReady && store.dataIsReady' class="sizeContainer">
+      <h1>Settings</h1>
+  <!--    <BudgetPeriod />-->
+  <!--    <br />-->
+      <div class="childContainer">
+        <Incomes :freqOptions='incomeOptions'/>
+        <BudgetAreas :durOptions='budgetAreaOptions'/>
+      </div>
+      <div>total percentage of income used: {{ totalPercent }}%</div>
+  <!--    <div>income after tax for current budget period: ${{ store.data.incomeForPeriod }}</div>-->
+    </div>
   </div>
 </template>
 
@@ -69,6 +71,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.sizeContainer {
+  width: 800px;
+}
+
+.childContainer {
+  display: flex;
+  margin: 30px;
+  align-items: start;
+  justify-content: space-between;
+}
 </style>

@@ -1,14 +1,16 @@
 <template>
-  <h3>Budget Areas:</h3>
-  <button @click='handleAddArea'>Add Budget Area</button>
-  <br />
-  <br />
-  <form @submit.prevent='handleBudgetAreasSave'>
-    <BudgetArea v-for='(elt, i) in store.data.budgetAreas' :key='i'
-      :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
-    />
-    <button>Save</button>
-  </form>
+  <div class="container">
+    <h3>Budget Areas:</h3>
+    <button @click='handleAddArea' class="buttonStyle">Add Budget Area</button>
+    <br />
+    <br />
+    <form @submit.prevent='handleBudgetAreasSave'>
+      <BudgetArea v-for='(elt, i) in store.data.budgetAreas' :key='i'
+        :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
+      />
+      <button class="buttonStyle">Save</button>
+    </form>
+  </div>
 <!--  <div>total percentage of income used: {{ totalPercent }}%</div>-->
 <!--  <div>total income used in budget period: ${{ totalIncomeUsed }} / ${{ store.data.incomeForPeriod }}</div>-->
 </template>
@@ -77,6 +79,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: start !important;
+}
 </style>

@@ -3,7 +3,9 @@
   <input type='text' v-model='area.name' placeholder='name' required>
   <input type='number' step='0.01' v-model='area.amount' placeholder='amount' @keydown="handleKeyDown" required>
   <div>percent of income: {{ percent }}%</div>
-  <div @click='removeArea'>Remove</div>
+  <div>
+    <button @click='removeArea' class="buttonStyle">Remove</button>
+  </div>
 </template>
 
 <script>
