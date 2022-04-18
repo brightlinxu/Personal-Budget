@@ -1,8 +1,15 @@
 <template>
   <div class='container'>
-    <BudgetBox v-for='(elt, i) in store.data.budgetAreas' :key='i' 
-      :id='i' 
-    />
+    <div v-if="store.data.budgetAreas.length > 0">
+      <BudgetBox
+        v-for='(elt, i) in store.data.budgetAreas'
+        :key='i'
+        :id='i'
+      />
+    </div>
+    <div v-else>
+      You have no budget categories at the moment!
+    </div>
   </div>
 </template>
 

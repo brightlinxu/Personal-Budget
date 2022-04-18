@@ -68,7 +68,11 @@ const store = createStore({
         const data = {
           firstName: payload.firstName,
           lastName: payload.lastName,
-          incomes: [{amount: null, freq: null}]
+          incomes: [{amount: null, freq: null}],
+          budget: 0,
+          budgetAreas: [],
+          history: [],
+          incomeForPeriod: 0,
         };
         await setDoc(docRef, data); // send data to database
         context.commit('setData', data); // send data to store

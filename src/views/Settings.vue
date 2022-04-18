@@ -1,13 +1,14 @@
 <template>
   <div v-if='store.authIsReady && store.dataIsReady'>
     <h1>Settings:</h1>
-    <BudgetPeriod />
-    <br />
+<!--    <BudgetPeriod />-->
+<!--    <br />-->
     <Incomes :freqOptions='incomeOptions'/>
     <br />
     <BudgetAreas :durOptions='budgetAreaOptions'/>
     <br />
-    <div>income after tax for current budget period: ${{ store.data.incomeForPeriod }}</div>
+    <div>total percentage of income used: {{ totalPercent }}%</div>
+<!--    <div>income after tax for current budget period: ${{ store.data.incomeForPeriod }}</div>-->
   </div>
 </template>
 
@@ -15,7 +16,7 @@
 import { useStore } from 'vuex';
 import { computed, watch, onMounted } from 'vue';
 import Incomes from '../components/Incomes.vue';
-import BudgetPeriod from '../components/BudgetPeriod.vue';
+// import BudgetPeriod from '../components/BudgetPeriod.vue';
 import BudgetAreas from '../components/BudgetAreas.vue';
 import { updateData } from '../firebase/functions.js';
 import { getTotalPercent } from '../utilities/calculations.js';
@@ -59,10 +60,11 @@ export default {
       store: computed(() => store.state),
       budgetAreaOptions,
       incomeOptions,
+      totalPercent: computed(() => getTotalPercent(store, budgetAreaOptions)),
     }
   },
   components: {
-    Incomes, BudgetPeriod, BudgetAreas
+    Incomes, /*BudgetPeriod,*/ BudgetAreas
   }
 }
 </script>

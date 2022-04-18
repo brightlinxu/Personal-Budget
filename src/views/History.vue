@@ -8,6 +8,9 @@
       <div class='spentText'>Total Spent - ${{ elt[1].toFixed(2) }}</div>
     </div>
   </div>
+  <div v-else>
+    You haven't spent any money!
+  </div>
 </template>
 
 <script>

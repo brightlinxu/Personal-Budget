@@ -9,8 +9,8 @@
     />
     <button>Save</button>
   </form>
-  <div>total percentage of income used: {{ totalPercent }}%</div>
-  <div>total income used in budget period: ${{ totalIncomeUsed }} / ${{ store.data.incomeForPeriod }}</div>
+<!--  <div>total percentage of income used: {{ totalPercent }}%</div>-->
+<!--  <div>total income used in budget period: ${{ totalIncomeUsed }} / ${{ store.data.incomeForPeriod }}</div>-->
 </template>
 
 <script>

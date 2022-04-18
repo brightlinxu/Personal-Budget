@@ -33,6 +33,14 @@ body {
 input {
   font-family: Avenir;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number]{
+  -moz-appearance: textfield;
+}
 button {
   font-family: Avenir;
   background: none;

@@ -1,6 +1,6 @@
 <template>
   <Dropdown :options='freqOptions' :defaultText='income.freq ? income.freq : "Income Frequency"' @optionClicked='freqOptionClicked'/>
-  <input type='number' step='0.01' v-model='income.amount' placeholder='amount' required>
+  <input type='number' step='0.01' v-model='income.amount' placeholder='amount' @keydown="handleKeyDown" required>
   <div @click='removeIncome'>Remove</div>
 </template>
 
@@ -28,11 +28,19 @@ export default {
       emit('removeIncome', props.id);
     }
 
+    const handleKeyDown = (event) => {
+      // prevent arrow keys from changing number input
+      if (event.which === 38 || event.which === 40) {
+        event.preventDefault();
+      }
+    }
+
 
     return {
       freqOptionClicked,
       income,
-      removeIncome
+      removeIncome,
+      handleKeyDown
     }
   },
   components: {
