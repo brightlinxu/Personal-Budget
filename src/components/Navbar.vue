@@ -1,7 +1,7 @@
 <template>
   <div :class='{ fixedContainer: true, fixedContainerAfterScroll: scrollPosition > 20}'>
     <div class='container'>
-      <a @click='handleRedirectHome' class='buttonStyle'>Home</a>
+      <div @click='handleRedirectHome' class='buttonStyle'>Home</div>
       <div v-if='authIsReady && !authData' class='rightSide'> <!-- not logged in -->
         <LoginButton />
         <SignupButton />

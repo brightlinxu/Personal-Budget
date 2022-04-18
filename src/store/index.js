@@ -68,7 +68,7 @@ const store = createStore({
         const data = {
           firstName: payload.firstName,
           lastName: payload.lastName,
-          incomes: [{amount: null, freq: null}],
+          incomes: [],
           budget: 0,
           budgetAreas: [],
           history: [],
