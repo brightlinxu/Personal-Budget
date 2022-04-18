@@ -1,6 +1,6 @@
 <template>
   <div :class='{ fixedContainer: true, fixedContainerAfterScroll: scrollPosition > 20}'>
-    <div class='container'>
+    <div class='nav-bar-container'>
       <div @click='handleRedirectHome' class='buttonStyle'>Home</div>
       <div v-if='authIsReady && !authData' class='rightSide'> <!-- not logged in -->
         <LoginButton />
@@ -83,7 +83,7 @@ export default {
   background-color: rgba(250, 250, 250, 0.95);
 }
 
-.container {
+.nav-bar-container {
   display: flex;
   justify-content: space-between;
   padding: 12px 15px;

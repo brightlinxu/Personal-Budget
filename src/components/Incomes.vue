@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="incomesContainer">
     <h3>Incomes:</h3>
     <button @click='handleAddIncome' class="buttonStyle">Add Income Source</button>
     <br />
@@ -76,9 +76,11 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.incomesContainer {
   display: flex;
   flex-direction: column;
   align-items: start !important;
+  width: 300px;
+  margin: 20px;
 }
 </style>

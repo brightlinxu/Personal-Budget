@@ -1,19 +1,17 @@
 <template>
-  <div class='container'>
-    <div v-if="store.data.budgetAreas.length > 0">
-      <BudgetBox
-        v-for='(elt, i) in store.data.budgetAreas'
-        :key='i'
-        :id='i'
-      />
+  <div v-if="store.data.budgetAreas.length > 0" class='container'>
+    <BudgetBox
+      v-for='(elt, i) in store.data.budgetAreas'
+      :key='i'
+      :id='i'
+    />
+  </div>
+  <div v-else class='container'>
+    <div>
+      You have no budget categories at the moment!
     </div>
-    <div v-else>
-      <div>
-        You have no budget categories at the moment!
-      </div>
-      <div>
-        Click <button :onclick="handleRouterClick" class="button-override">here</button> to add more
-      </div>
+    <div>
+      Click <button :onclick="handleRouterClick" class="button-inline-text">here</button> to add more
     </div>
   </div>
 </template>
@@ -50,13 +48,13 @@ export default {
   justify-content: center;
 }
 
-.button-override {
+.button-inline-text {
   display: inline;
   margin: 0;
   padding: 0;
   color: #0284C7;
 }
-.button-override:hover {
+.button-inline-text:hover {
   color: #0369A1;
 }
 </style>

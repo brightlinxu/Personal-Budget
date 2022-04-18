@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="settingsContainer">
     <div v-if='store.authIsReady && store.dataIsReady' class="sizeContainer">
       <h1>Settings</h1>
   <!--    <BudgetPeriod />-->
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.settingsContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,6 +86,7 @@ export default {
   display: flex;
   margin: 30px;
   align-items: start;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 </style>

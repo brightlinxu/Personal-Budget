@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="budgetAreasContainer">
     <h3>Budget Areas:</h3>
     <button @click='handleAddArea' class="buttonStyle">Add Budget Area</button>
     <br />
@@ -80,9 +80,11 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.budgetAreasContainer {
   display: flex;
   flex-direction: column;
   align-items: start !important;
+  width: 300px;
+  margin: 20px;
 }
 </style>

@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .individualContainer {
   display: flex;
   justify-content: space-between;
