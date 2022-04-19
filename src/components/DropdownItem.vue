@@ -23,12 +23,11 @@ export default {
 <style scoped>
 .dropdownItemContainer {
   padding: 8px;
-  border-radius: 10px;
 }
 .dropdownItemContainer:hover {
-  background-color: lightgrey;
+  background-color: #f3f4f6;
 }
 .dropdownItemContainer:active {
-  background-color: grey;
+  background-color: #e5e7eb;
 }
 </style>

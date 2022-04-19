@@ -135,7 +135,7 @@ export default {
 
 .incomesTitle {
   font-size: 22px;
-  font-weight: 550;
+  font-weight: 600;
 }
 
 .incomesErrorMessage {

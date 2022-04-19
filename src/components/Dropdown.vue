@@ -1,6 +1,12 @@
 <template>
   <div class="dropdownContainer noHighlight">
-    <div @click='toggleDropdown' v-click-away="onClickAway">{{ selectedOption }}</div>
+    <div @click='toggleDropdown' v-click-away="onClickAway" class="dropdownHeader">
+      {{ selectedOption }}
+      <div class="dropdownChevron">
+        <ChevronDown v-if="!visible" :size="18"/>
+        <ChevronUp v-else :size="18"/>
+      </div>
+    </div>
     <transition name="dropdown">
       <div v-if='visible' class="dropdownItemsContainer">
         <DropdownItem v-for='option in options' :key='option'
@@ -14,6 +20,8 @@
 <script>
 import { ref, watch } from 'vue';
 import DropdownItem from './DropdownItem.vue';
+import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
 
 export default {
   props: ['options', 'defaultText'],
@@ -23,7 +31,7 @@ export default {
     const selectedOption = ref(props.defaultText)
 
     const toggleDropdown = () => {
-      visible.value = !visible.value
+      setTimeout(() => visible.value = !visible.value);
     }
 
     // dropdown item is clicked
@@ -51,7 +59,7 @@ export default {
     }
   },
   components: {
-    DropdownItem
+    DropdownItem, ChevronDown, ChevronUp
   }
 }
 </script>
@@ -69,6 +77,25 @@ export default {
   border-radius: 10px;
   z-index: 99;
   width: 100px;
+  margin-left: -8px;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  display: flex;
+  transition: 0.15s;
+  font-size: 18px;
+  font-weight: 500;
+}
+.dropdownHeader:hover {
+  color: #075985
+}
+
+.dropdownChevron {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0 2px;
+  z-index: 0;
 }
 
 .dropdown-enter-active,

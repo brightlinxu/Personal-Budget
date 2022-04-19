@@ -153,7 +153,7 @@ export default {
 
 .budgetsTitle {
   font-size: 22px;
-  font-weight: 550;
+  font-weight: 600;
 }
 
 .budgetsErrorMessage {
