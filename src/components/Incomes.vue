@@ -13,6 +13,7 @@
     <form @submit.prevent='handleIncomesSave' id="incomesForm" class="incomeContainer incomeContainerNumContains">
       <Income v-for='(elt, i) in store.data.incomes' :key='i'
         :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
+        :errorMessage="errorMessage"
       />
       <button @click='handleAddIncome' type="button" class="incomeAddButton">
         <div class="incomePlusIcon"><Plus :size='25'/></div>

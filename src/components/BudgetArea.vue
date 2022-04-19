@@ -7,11 +7,11 @@
       </div>
       <div class="budgetInputs">
         <div class="budgetInput">
-          <input type='text' v-model='area.name' placeholder='Name' name="Name" id="budgetName" class="floatingInput" required />
+          <input type='text' v-model='area.name' placeholder='Name' name="Name" id="budgetName" class="floatingInput" />
           <label for="budgetName" data-content="Name" class="floatingLabel" />
         </div>
         <div class="budgetInput">
-          <input type='number' step='0.01' v-model='area.amount' placeholder='Amount' @keydown="handleKeyDown" name="Amount" id="budgetAmount" class="floatingInput" required />
+          <input type='number' step='0.01' v-model='area.amount' placeholder='Amount' @keydown="handleKeyDown" name="Amount" id="budgetAmount" class="floatingInput" />
           <label for="budgetAmount" data-content="Amount" class="floatingLabel" />
         </div>
       </div>

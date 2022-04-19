@@ -7,11 +7,11 @@
       </div>
       <div class="incomeInputs">
         <div class="incomeInput">
-          <input type='text' v-model='income.name' placeholder='Name' name="Name" id="incomeName" class="floatingInput" required />
-          <label for="incomeName" data-content="Name" class="floatingLabel" />
+          <input type='text' v-model='income.name' placeholder='Name' name="Name" id="incomeName" class="floatingInput" />
+          <label for="incomeName" data-content="Name"  class="floatingLabel"/>
         </div>
         <div class="incomeInput">
-          <input type='number' step='0.01' v-model='income.amount' placeholder='Amount' @keydown="handleKeyDown" name="Amount" id="incomeAmount" class="floatingInput" required />
+          <input type='number' step='0.01' v-model='income.amount' placeholder='Amount' @keydown="handleKeyDown" name="Amount" id="incomeAmount" class="floatingInput" />
           <label for="incomeAmount" data-content="Amount" class="floatingLabel" />
         </div>
       </div>
@@ -26,7 +26,7 @@ import Dropdown from './Dropdown.vue';
 import WindowClose from 'vue-material-design-icons/WindowClose.vue'
 
 export default {
-  props: ['id', 'freqOptions'],
+  props: ['id', 'freqOptions', 'errorMessage'],
   emits: ['removeIncome'],
   setup(props, { emit }) {
     const store = useStore();
@@ -56,7 +56,8 @@ export default {
       freqOptionClicked,
       income,
       removeIncome,
-      handleKeyDown
+      handleKeyDown,
+      labelColor: computed(() => !!props.errorMessage && (income.value.name === null || income.value.amount === null) ? 'red' : 'darkgrey'),
     }
   },
   components: {
@@ -103,4 +104,9 @@ export default {
 .incomeInput {
   padding: 10px;
 }
+
+/*.floatingInput:placeholder-shown + .floatingLabel::before {*/
+/*  transform: translate3d(-16px, -27px, 0) scale3d(1, 1, 1);*/
+/*  color: v-bind(labelColor);*/
+/*}*/
 </style>

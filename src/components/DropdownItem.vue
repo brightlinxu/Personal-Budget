@@ -1,5 +1,7 @@
 <template>
-  <div @click='handleClick'>{{ option }}</div>
+  <div @click='handleClick' class="dropdownItemContainer">
+    {{ option }}
+  </div>
 </template>
 
 <script>
@@ -18,6 +20,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.dropdownItemContainer {
+  padding: 8px;
+  border-radius: 10px;
+}
+.dropdownItemContainer:hover {
+  background-color: lightgrey;
+}
+.dropdownItemContainer:active {
+  background-color: grey;
+}
 </style>
