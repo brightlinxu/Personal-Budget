@@ -33,6 +33,13 @@ body {
 }
 input {
   font-family: Avenir;
+  background: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  display: block;
+  width: 100%;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
