@@ -6,6 +6,9 @@
         <div :v-if="!!errorMessage" class="incomesErrorMessage">
           {{errorMessage}}
         </div>
+        {{
+
+        }}
         <button type="submit" form="incomesForm" class="buttonStyle2">Save</button>
       </div>
     </div>
@@ -28,6 +31,7 @@ import { getIncomeAfterTax, getYearlyIncome } from '../utilities/calculations.js
 import { updateData } from '../firebase/functions.js';
 import Income from './Income.vue';
 import Plus from 'vue-material-design-icons/Plus.vue'
+// import Check from 'vue-material-design-icons/Check.vue'
 
 export default {
   props: ['freqOptions'],
@@ -35,12 +39,13 @@ export default {
     const store = useStore();
 
     const errorMessage = ref("");
+    const responseSuccess = ref(false);
 
     const handleIncomesSave = () => {
       // check if everything is filled in
       let allFilled = true;
       store.state.data.incomes.forEach((income) => {
-        if (income.amount === null || income.freq === null) {
+        if (income.name === null || income.amount === null || income.freq === null) {
           allFilled = false;
         }
       });
@@ -48,7 +53,7 @@ export default {
       // don't update database if not all filled
       if (!allFilled) {
         // ! do error later
-        console.log('FILL IN EVERYTHING IN FORMS');
+        errorMessage.value = "Fill Everything Out";
         return;
       }
 
@@ -86,11 +91,12 @@ export default {
       handleAddIncome,
       store: computed(() => store.state),
       handleRemoveIncome,
-      errorMessage
+      errorMessage,
+      responseSuccess
     }
   },
   components: {
-    Income, Plus
+    Income, Plus, /*Check*/
   }
 }
 </script>

@@ -43,6 +43,21 @@ export default {
     const errorMessage = ref("");
 
     const handleBudgetAreasSave = () => {
+      // check that all inputs are filled in
+      let allFilled = true;
+      store.state.data.budgetAreas.forEach((budgetArea) => {
+        if (budgetArea.name === null || budgetArea.amount === null || budgetArea.dur === null) {
+          allFilled = false;
+        }
+      });
+
+      // don't update database if not all filled
+      if (!allFilled) {
+        // ! do error later
+        errorMessage.value = "Fill Everything Out";
+        return;
+      }
+
       // update all start dates
       const temp = store.state.data;
       temp.budgetAreas.forEach((elt, i, arr) => {
@@ -72,7 +87,7 @@ export default {
 
     const handleAddArea = () => {
       const temp = store.state.data;
-      temp.budgetAreas.push({amount: null, name: null, spent: [], undoStack: [], startDate: null});
+      temp.budgetAreas.push({amount: null, name: null, dur: null, spent: [], undoStack: [], startDate: null});
       store.commit('setData', temp);
     }
     const handleRemoveArea = (areaid) => {
