@@ -77,6 +77,7 @@ export default {
   border-radius: 8px;
   padding: 20px;
   background-color: white;
+  height: 156px;
 }
 
 .incomeTopBar {
@@ -101,74 +102,5 @@ export default {
 
 .incomeInput {
   padding: 10px;
-}
-
-.floatingInput {
-  font-size: 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  transition: border-color 0.2s ease;
-  caret-color: #6200ee;
-  height: 30px;
-  padding-top: 10px;
-  border-radius: 0px;
-}
-
-.floatingInput::placeholder {
-  color: rgba(0, 0, 0, 0);
-}
-
-.floatingLabel {
-  display: block;
-  position: relative;
-  max-height: 0;
-  /*font-weight: 500;*/
-  pointer-events: none;
-}
-
-.floatingLabel::before {
-  color: #222;
-  content: attr(data-content);
-  display: inline-block;
-  filter: blur(0);
-  backface-visibility: hidden;
-  transform-origin: left top;
-  transition: transform 0.2s ease;
-  left: 1rem;
-  position: relative;
-}
-
-.floatingLabel::after {
-  bottom: 1rem;
-  content: "";
-  height: 0.1rem;
-  position: absolute;
-  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
-  opacity 180ms cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
-  opacity: 0;
-  left: 0;
-  top: 100%;
-  margin-top: -0.1rem;
-  transform: scale3d(0, 1, 1);
-  width: 100%;
-  background-color: #0369a1;
-}
-
-.floatingInput:focus + .floatingLabel::after {
-  transform: scale3d(1, 1, 1);
-  opacity: 1;
-}
-
-.floatingInput:placeholder-shown + .floatingLabel::before {
-  transform: translate3d(-16px, -27px, 0) scale3d(1, 1, 1);
-  color: red;
-}
-
-.floatingLabel::before,
-.floatingInput:focus + .floatingLabel::before {
-  transform: translate3d(-16px, -48px, 0) scale3d(0.82, 0.82, 1);
-}
-
-.floatingInput:focus + .floatingLabel::before {
-  color: #0369a1;
 }
 </style>

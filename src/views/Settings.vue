@@ -1,7 +1,7 @@
 <template>
   <div class="settingsContainer">
     <div v-if='store.authIsReady && store.dataIsReady' class="sizeContainer">
-      <h1>Settings</h1>
+      <div class="settingsTitle">Settings</div>
   <!--    <BudgetPeriod />-->
   <!--    <br />-->
       <div class="childContainer">
@@ -78,13 +78,19 @@ export default {
   align-items: center;
 }
 
+.settingsTitle {
+  margin: 20px 20px 0 20px;
+  font-size: 40px;
+  font-weight: 450;
+}
+
 .sizeContainer {
   width: 1200px;
 }
 
 .childContainer {
   display: flex;
-  margin: 30px;
+  margin: 20px 30px;
   align-items: start;
   justify-content: center;
   flex-direction: column;
