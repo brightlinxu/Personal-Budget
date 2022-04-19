@@ -95,7 +95,7 @@ export default {
 
 .incomesTopContainerSize1 {
   position: sticky;
-  top: 42px;
+  top: 60px;
   z-index: 100;
 }
 
