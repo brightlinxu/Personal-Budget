@@ -107,7 +107,7 @@ export default {
   box-shadow: 0px 2px 4px rgb(38 96 136 / 20%);
   border-radius: 5px;
   padding: 10px;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 
 .incomesTitle {
