@@ -90,7 +90,7 @@ export default {
 
 .childContainer {
   display: flex;
-  margin: 20px 30px;
+  margin: 10px 30px 20px 30px;
   align-items: start;
   justify-content: center;
   flex-direction: column;
