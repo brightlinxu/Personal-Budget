@@ -128,7 +128,7 @@ export default {
   flex-direction: column;
   align-items: start;
   min-width: 280px;
-  margin: 40px 20px 20px 20px;
+  margin: 0 20px 20px 20px;
   /*border: 1px solid #eaeaea;;*/
   /*padding: 30px;*/
   /*border-radius: 5px;*/

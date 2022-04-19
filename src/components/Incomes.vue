@@ -6,8 +6,8 @@
         <div v-if="!!errorMessage" class="incomesErrorMessage">
           {{errorMessage}}
         </div>
-        <button v-if="responseSuccess" type="submit" form="incomesForm" class="responseSuccessButton"><Check :size='26'/></button>
-        <button v-else type="submit" form="incomesForm" class="buttonStyle2">Save</button>
+        <button v-if="responseSuccess" type="submit" form="incomesForm" class="responseSuccessButton"><Check :size='32'/></button>
+        <button v-else type="submit" form="incomesForm" class="buttonStyle2 incomesSaveButton">Save</button>
       </div>
     </div>
     <form @submit.prevent='handleIncomesSave' id="incomesForm" class="incomeContainer incomeContainerNumContains">
@@ -20,6 +20,7 @@
         Add Income Source
       </button>
     </form>
+    <div class="incomesContainerSpacing"/>
   </div>
 </template>
 
@@ -110,10 +111,14 @@ export default {
   flex-direction: column;
   align-items: start;
   min-width: 280px;
-  margin: 20px;
+  margin: 20px 20px 10px 20px;
   /*border: 1px solid #eaeaea;;*/
   /*padding: 30px;*/
   /*border-radius: 5px;*/
+}
+
+.incomesContainerSpacing {
+  height: 45px;
 }
 
 .incomesTopContainerSize1 {
@@ -130,7 +135,6 @@ export default {
   box-shadow: 0px 2px 4px rgb(38 96 136 / 20%);
   border-radius: 5px;
   padding: 10px;
-  margin-bottom: 20px;
 }
 
 .incomesTitle {
@@ -145,15 +149,21 @@ export default {
 
 .responseSuccessButton {
   color: green;
-  width: 26px;
-  height: 26px;
-  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+  margin-right: 20px;
+}
+
+.incomesSaveButton {
+  width: 7%;
+  min-width: 60px;
 }
 
 .incomeContainer {
   display: grid;
   row-gap: 20px;
   column-gap: 20px;
+  margin-top: 20px;
 }
 
 .incomeAddButton {

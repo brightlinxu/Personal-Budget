@@ -79,7 +79,7 @@ export default {
 }
 
 .settingsTitle {
-  margin: 20px 20px 0 20px;
+  margin: 15px 20px 0 20px;
   font-size: 40px;
   font-weight: 450;
 }

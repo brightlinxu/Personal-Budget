@@ -94,7 +94,7 @@ export default {
 .dropdownChevron {
   width: 18px;
   height: 18px;
-  margin: 2px 0 0 2px;
+  margin: 3px 0 0 2px;
   z-index: 0;
 }
 
