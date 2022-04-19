@@ -105,7 +105,7 @@ export default {
   flex-direction: column;
   align-items: start;
   min-width: 280px;
-  margin: 20px;
+  margin: 40px 20px 20px 20px;
   /*border: 1px solid #eaeaea;;*/
   /*padding: 30px;*/
   /*border-radius: 5px;*/
@@ -125,7 +125,7 @@ export default {
   box-shadow: 0px 2px 4px rgb(38 96 136 / 20%);
   border-radius: 5px;
   padding: 10px;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 
 .budgetsTitle {
@@ -180,7 +180,7 @@ export default {
   }
 }
 @media only screen and (min-width: 550px) and (max-width: 820px) {
-  .budgetsContainerNumContains {
+  .budgetContainerNumContains {
     grid-template-columns: repeat(2, minmax(0, 100vw));
   }
   .budgetsTopContainerSize2 {
