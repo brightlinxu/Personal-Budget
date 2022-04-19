@@ -3,6 +3,9 @@
     <div class="budgetsTopContainerSize1 budgetsTopContainerSize2">
       <div class="budgetsTopContainer">
         <div class="budgetsTitle">Budgets</div>
+        <div :v-if="!!errorMessage" class="budgetsErrorMessage">
+          {{errorMessage}}
+        </div>
         <button type="submit" form="budgetsForm" class="buttonStyle2">Save</button>
       </div>
     </div>
@@ -22,14 +25,13 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import BudgetArea from './BudgetArea.vue';
 import { getTotalPercent, getFirstDayOfWeek, getFirstDayOfMonth } from '../utilities/calculations.js';
 import Plus from 'vue-material-design-icons/Plus.vue'
 
 export default {
-  props: ['durOptions'],
   setup(props) {
     const store = useStore();
     const FIRSTMONDAY = {
@@ -37,6 +39,8 @@ export default {
       day: 3,
       year: 2022
     }
+
+    const errorMessage = ref("");
 
     const handleBudgetAreasSave = () => {
       // update all start dates
@@ -55,7 +59,15 @@ export default {
       store.commit('setData', temp)
 
       // update database
-      updateData(store, store.state.data);  
+      updateData(store, store.state.data).then((error) => {
+        if (!error) { // no error
+          errorMessage.value = "";
+        }
+        else { // error
+          errorMessage.value = "Error Saving to Database"
+          console.log("Error: ", error);
+        }
+      });
     }
 
     const handleAddArea = () => {
@@ -77,8 +89,10 @@ export default {
       handleRemoveArea,
       totalPercent: computed(() => getTotalPercent(store, props.durOptions)),
       totalIncomeUsed: computed(() => (getTotalPercent(store, props.durOptions) * store.state.data.incomeForPeriod / 100).toFixed(2)),
+      errorMessage
     }
   },
+  props: ['durOptions'],
   components: {
     BudgetArea, Plus
   }
@@ -117,6 +131,11 @@ export default {
 .budgetsTitle {
   font-size: 22px;
   font-weight: 550;
+}
+
+.budgetsErrorMessage {
+  text-align: center;
+  color: red;
 }
 
 .budgetContainer {

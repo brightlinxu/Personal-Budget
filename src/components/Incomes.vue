@@ -3,6 +3,9 @@
     <div class="incomesTopContainerSize1 incomesTopContainerSize2">
       <div class="incomesTopContainer">
         <div class="incomesTitle">Incomes</div>
+        <div :v-if="!!errorMessage" class="incomesErrorMessage">
+          {{errorMessage}}
+        </div>
         <button type="submit" form="incomesForm" class="buttonStyle2">Save</button>
       </div>
     </div>
@@ -20,7 +23,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { getIncomeAfterTax, getYearlyIncome } from '../utilities/calculations.js';
 import { updateData } from '../firebase/functions.js';
 import Income from './Income.vue';
@@ -30,6 +33,8 @@ export default {
   props: ['freqOptions'],
   setup(props) {
     const store = useStore();
+
+    const errorMessage = ref("");
 
     const handleIncomesSave = () => {
       // check if everything is filled in
@@ -54,7 +59,15 @@ export default {
       });
 
       // update database
-      updateData(store, store.state.data);      
+      updateData(store, store.state.data).then((error) => {
+        if (!error) { // no error
+          errorMessage.value = "";
+        }
+        else { // error
+          errorMessage.value = "Error Saving to Database";
+          console.log("Error: ", error);
+        }
+      });
     }
 
     const handleAddIncome = () => {
@@ -73,6 +86,7 @@ export default {
       handleAddIncome,
       store: computed(() => store.state),
       handleRemoveIncome,
+      errorMessage
     }
   },
   components: {
@@ -113,6 +127,11 @@ export default {
 .incomesTitle {
   font-size: 22px;
   font-weight: 550;
+}
+
+.incomesErrorMessage {
+  text-align: center;
+  color: red;
 }
 
 .incomeContainer {
