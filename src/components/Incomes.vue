@@ -3,13 +3,11 @@
     <div class="incomesTopContainerSize1 incomesTopContainerSize2">
       <div class="incomesTopContainer">
         <div class="incomesTitle">Incomes</div>
-        <div :v-if="!!errorMessage" class="incomesErrorMessage">
+        <div v-if="!!errorMessage" class="incomesErrorMessage">
           {{errorMessage}}
         </div>
-        {{
-
-        }}
-        <button type="submit" form="incomesForm" class="buttonStyle2">Save</button>
+        <button v-if="responseSuccess" type="submit" form="incomesForm" class="responseSuccessButton"><Check :size='26'/></button>
+        <button v-else type="submit" form="incomesForm" class="buttonStyle2">Save</button>
       </div>
     </div>
     <form @submit.prevent='handleIncomesSave' id="incomesForm" class="incomeContainer incomeContainerNumContains">
@@ -30,8 +28,8 @@ import { computed, ref } from 'vue';
 import { getIncomeAfterTax, getYearlyIncome } from '../utilities/calculations.js';
 import { updateData } from '../firebase/functions.js';
 import Income from './Income.vue';
-import Plus from 'vue-material-design-icons/Plus.vue'
-// import Check from 'vue-material-design-icons/Check.vue'
+import Plus from 'vue-material-design-icons/Plus.vue';
+import Check from 'vue-material-design-icons/Check.vue';
 
 export default {
   props: ['freqOptions'],
@@ -67,6 +65,10 @@ export default {
       updateData(store, store.state.data).then((error) => {
         if (!error) { // no error
           errorMessage.value = "";
+          responseSuccess.value = true;
+          setTimeout(() => {
+            responseSuccess.value = false;
+          }, 1000);
         }
         else { // error
           errorMessage.value = "Error Saving to Database";
@@ -96,7 +98,7 @@ export default {
     }
   },
   components: {
-    Income, Plus, /*Check*/
+    Income, Plus, Check
   }
 }
 </script>
@@ -138,6 +140,13 @@ export default {
 .incomesErrorMessage {
   text-align: center;
   color: red;
+}
+
+.responseSuccessButton {
+  color: green;
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
 }
 
 .incomeContainer {

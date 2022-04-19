@@ -6,7 +6,8 @@
         <div :v-if="!!errorMessage" class="budgetsErrorMessage">
           {{errorMessage}}
         </div>
-        <button type="submit" form="budgetsForm" class="buttonStyle2">Save</button>
+        <button v-if="responseSuccess" type="submit" form="budgetsForm" class="responseSuccessButton"><Check :size='26'/></button>
+        <button v-else type="submit" form="budgetsForm" class="buttonStyle2">Save</button>
       </div>
     </div>
     <form @submit.prevent='handleBudgetAreasSave' id="budgetsForm" class="budgetContainer budgetContainerNumContains">
@@ -29,7 +30,8 @@ import { computed, ref } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import BudgetArea from './BudgetArea.vue';
 import { getTotalPercent, getFirstDayOfWeek, getFirstDayOfMonth } from '../utilities/calculations.js';
-import Plus from 'vue-material-design-icons/Plus.vue'
+import Plus from 'vue-material-design-icons/Plus.vue';
+import Check from 'vue-material-design-icons/Check.vue'
 
 export default {
   setup(props) {
@@ -41,6 +43,7 @@ export default {
     }
 
     const errorMessage = ref("");
+    const responseSuccess = ref(false);
 
     const handleBudgetAreasSave = () => {
       // check that all inputs are filled in
@@ -77,6 +80,10 @@ export default {
       updateData(store, store.state.data).then((error) => {
         if (!error) { // no error
           errorMessage.value = "";
+          responseSuccess.value = true;
+          setTimeout(() => {
+            responseSuccess.value = false;
+          }, 1000);
         }
         else { // error
           errorMessage.value = "Error Saving to Database"
@@ -104,12 +111,13 @@ export default {
       handleRemoveArea,
       totalPercent: computed(() => getTotalPercent(store, props.durOptions)),
       totalIncomeUsed: computed(() => (getTotalPercent(store, props.durOptions) * store.state.data.incomeForPeriod / 100).toFixed(2)),
-      errorMessage
+      errorMessage,
+      responseSuccess
     }
   },
   props: ['durOptions'],
   components: {
-    BudgetArea, Plus
+    BudgetArea, Plus, Check
   }
 }
 </script>
@@ -151,6 +159,13 @@ export default {
 .budgetsErrorMessage {
   text-align: center;
   color: red;
+}
+
+.responseSuccessButton {
+  color: green;
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
 }
 
 .budgetContainer {
