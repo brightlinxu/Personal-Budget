@@ -110,6 +110,7 @@ export default {
   caret-color: #6200ee;
   height: 30px;
   padding-top: 10px;
+  border-radius: 0px;
 }
 
 .floatingInput::placeholder {
