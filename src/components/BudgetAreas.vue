@@ -7,7 +7,7 @@
           {{errorMessage}}
         </div>
         <button v-if="responseSuccess" type="submit" form="budgetsForm" class="responseSuccessButton"><Check :size='26'/></button>
-        <button v-else type="submit" form="budgetsForm" class="buttonStyle2">Save</button>
+        <button v-else type="submit" form="budgetsForm" class="buttonStyle2 budgetsSaveButton">Save</button>
       </div>
     </div>
     <form @submit.prevent='handleBudgetAreasSave' id="budgetsForm" class="budgetContainer budgetContainerNumContains">
@@ -163,9 +163,14 @@ export default {
 
 .responseSuccessButton {
   color: green;
-  width: 26px;
-  height: 26px;
-  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+  margin-right: 20px;
+}
+
+.budgetsSaveButton {
+  width: 7%;
+  min-width: 60px;
 }
 
 .budgetContainer {

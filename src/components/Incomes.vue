@@ -20,7 +20,6 @@
         Add Income Source
       </button>
     </form>
-    <div class="incomesContainerSpacing"/>
   </div>
 </template>
 
@@ -111,14 +110,7 @@ export default {
   flex-direction: column;
   align-items: start;
   min-width: 280px;
-  margin: 20px 20px 10px 20px;
-  /*border: 1px solid #eaeaea;;*/
-  /*padding: 30px;*/
-  /*border-radius: 5px;*/
-}
-
-.incomesContainerSpacing {
-  height: 45px;
+  margin: 20px 20px 60px 20px;
 }
 
 .incomesTopContainerSize1 {
