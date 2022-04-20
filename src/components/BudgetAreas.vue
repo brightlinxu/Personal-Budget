@@ -208,6 +208,10 @@ export default {
     width: 116%;
     transform: translate(-8%, 0);
   }
+  .budgetAddButton {
+    height: auto !important;
+    padding: 15px 0;
+  }
 }
 @media only screen and (min-width: 550px) and (max-width: 820px) {
   .budgetContainerNumContains {
