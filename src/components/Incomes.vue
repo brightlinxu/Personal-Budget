@@ -141,9 +141,9 @@ export default {
 
 .responseSuccessButton {
   color: green;
-  width: 32px;
+  width: fit-content;
   height: 32px;
-  margin-right: 30px;
+  margin-right: 10px;
 }
 
 .incomesSaveButton {
