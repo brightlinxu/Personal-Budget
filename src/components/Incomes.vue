@@ -111,6 +111,7 @@ export default {
   align-items: start;
   min-width: 280px;
   margin: 20px 20px 60px 20px;
+  z-index: 60;
 }
 
 .incomesTopContainerSize1 {
@@ -144,6 +145,7 @@ export default {
   width: 32px;
   height: 32px;
   margin-right: 20px;
+  z-index: 61;
 }
 
 .incomesSaveButton {
