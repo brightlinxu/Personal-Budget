@@ -6,7 +6,7 @@
         <div :v-if="!!errorMessage" class="budgetsErrorMessage">
           {{errorMessage}}
         </div>
-        <button v-if="responseSuccess" type="submit" form="budgetsForm" class="responseSuccessButton"><Check :size='26'/></button>
+        <button v-if="responseSuccess" type="submit" form="budgetsForm" class="responseSuccessButton"><Check :size='30'/></button>
         <button v-else type="submit" form="budgetsForm" class="buttonStyle2 budgetsSaveButton">Save</button>
       </div>
     </div>
@@ -165,10 +165,11 @@ export default {
   color: green;
   width: 32px;
   height: 32px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .budgetsSaveButton {
+  margin: 0;
   width: 7%;
   min-width: 60px;
 }

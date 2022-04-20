@@ -6,7 +6,7 @@
         <div v-if="!!errorMessage" class="incomesErrorMessage">
           {{errorMessage}}
         </div>
-        <button v-if="responseSuccess" type="submit" form="incomesForm" class="responseSuccessButton"><Check :size='32'/></button>
+        <button v-if="responseSuccess" type="submit" form="incomesForm" class="responseSuccessButton"><Check :size='30'/></button>
         <button v-else type="submit" form="incomesForm" class="buttonStyle2 incomesSaveButton">Save</button>
       </div>
     </div>
@@ -111,7 +111,6 @@ export default {
   align-items: start;
   min-width: 280px;
   margin: 20px 20px 60px 20px;
-  z-index: 60;
 }
 
 .incomesTopContainerSize1 {
@@ -144,11 +143,11 @@ export default {
   color: green;
   width: 32px;
   height: 32px;
-  margin-right: 20px;
-  z-index: 61;
+  margin-right: 10px;
 }
 
 .incomesSaveButton {
+  margin: 0;
   width: 7%;
   min-width: 60px;
 }
