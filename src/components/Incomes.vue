@@ -143,7 +143,7 @@ export default {
   color: green;
   width: fit-content;
   height: 32px;
-  margin-right: 10px;
+  /*margin-right: 10px;*/
 }
 
 .incomesSaveButton {
