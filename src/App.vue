@@ -74,11 +74,12 @@ button {
   transition: 0.1s;
 }
 .buttonStyle:hover {
-  background-color: #5f82b8;
+  /*background-color: #5f82b8;*/
+  background-color: #0369a1;
   color: white;
 }
 .buttonStyle:active {
-  background-color: #5472a1;
+  /*background-color: #5472a1;*/
   color: white;
 }
 
@@ -88,7 +89,8 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: #5f82b8;
+  /*background-color: #5f82b8;*/
+  background-color: #0369a1;
   color: white;
   user-select: none;
   -moz-user-select: none;
@@ -97,10 +99,10 @@ button {
   transition: 0.1s;
 }
 .buttonStyle2:hover {
-  background-color: #5472a1;
+  /*background-color: #5472a1;*/
 }
 .buttonStyle2:active {
-  background-color: #48618a;
+  /*background-color: #48618a;*/
 }
 
 .cutOverflow {

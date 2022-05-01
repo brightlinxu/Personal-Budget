@@ -186,7 +186,9 @@ export default {
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: #D0E2EE;
+  /*background-color: #D0E2EE;*/
+  /*background-color: #fed7aa;*/
+  background-color: rgba(3 105 161 / 0.25);
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;

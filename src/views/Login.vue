@@ -2,7 +2,7 @@
   <div class="loginContainerPosition">
     <div class="loginContainer">
       <div class="loginTitle">Login</div>
-      <form @submit.prevent='handleSubmit'>
+      <form @submit.prevent='handleSubmit' id="loginForm">
         <div class="loginFormContainer">
           <div class="loginInputContainer">
             <label>Email</label>
@@ -14,8 +14,10 @@
           </div>
           <div v-if='error' class="loginError">{{ error }}</div>
         </div>
-        <button class='buttonStyle2 loginButton'>Login</button>
       </form>
+    </div>
+    <div class="loginBottomContainer">
+      <button class='buttonStyle2 loginButton' type="submit" form="loginForm">Login</button>
       <div class="noAccountContainer">
         <span >Don't have an account?</span>
         <span class="noAccount" @click="handleNoAccountClick">Sign up</span>
@@ -74,6 +76,7 @@ export default {
 <style scoped>
 .loginContainerPosition {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 75vh;
@@ -81,7 +84,7 @@ export default {
 
 .loginContainer {
   background: white;
-  padding: 30px 30px 25px 30px;
+  padding: 30px 30px 35px 30px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgb(38 96 136 / 20%);
 }
@@ -109,17 +112,23 @@ export default {
 }
 
 .loginError {
+  position: absolute;
   width: 250px;
   font-size: 13px;
-  margin-top: 10px;
+  margin-top: 5px;
   color: red;
 }
 
+.loginBottomContainer {
+  margin-top: -25px;
+}
+
 .loginButton {
-  width: 100%;
-  border-radius: 40px;
-  padding: 10px;
+  border-radius: 50px;
+  padding: 15px;
   font-size: 15px;
+  width: 200px;
+  box-shadow: 0 4px 5px -2px rgba(3 105 161 / 0.5);
 }
 
 .noAccountContainer {
@@ -129,7 +138,7 @@ export default {
 }
 
 .noAccount {
-  color: #6b88b5;
+  color: #0369a1;
   cursor: pointer;
   margin-left: 5px;
 }

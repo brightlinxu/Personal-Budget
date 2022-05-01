@@ -2,7 +2,7 @@
   <div class="signupContainerPosition">
     <div class="signupContainer">
       <div class="signupTitle">Sign Up</div>
-      <form @submit.prevent='handleSubmit'>
+      <form @submit.prevent='handleSubmit' id="signupForm">
         <div class="signupFormContainer">
           <div class='signupInputContainer'>
             <label>First Name</label>
@@ -22,8 +22,10 @@
           </div>
           <div v-if='error' class="signupError">{{ error }}</div>
         </div>
-        <button class='buttonStyle2 signupButton'>Sign up</button>
       </form>
+    </div>
+    <div class="signupBottomContainer">
+      <button class='buttonStyle2 signupButton' type="submit" form="signupForm">Sign up</button>
       <div class="hasAccountContainer">
         <span>Have an account?</span>
         <span class="hasAccount" @click="handleHasAccountClick">Login</span>
@@ -113,6 +115,7 @@ export default {
 <style scoped>
 .signupContainerPosition {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 80vh;
@@ -154,11 +157,16 @@ export default {
   color: red;
 }
 
+.signupBottomContainer {
+  margin-top: -25px;
+}
+
 .signupButton {
-  width: 100%;
-  border-radius: 40px;
-  padding: 10px;
+  border-radius: 50px;
+  padding: 15px;
   font-size: 15px;
+  width: 200px;
+  box-shadow: 0 4px 5px -2px rgba(3 105 161 / 0.5);
 }
 
 .hasAccountContainer {
@@ -168,7 +176,7 @@ export default {
 }
 
 .hasAccount {
-  color: #6b88b5;
+  color: #0369a1;
   cursor: pointer;
   margin-left: 5px;
 }
