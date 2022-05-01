@@ -100,7 +100,7 @@ export default {
   border-color: lightgrey;
   border-radius: 5px;
   border-width: 1px;
-  padding: 7px 5px;
+  padding: 7px;
   width: 250px;
   font-size: 15px;
 }
