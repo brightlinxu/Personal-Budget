@@ -2,7 +2,7 @@
   <div v-if='store.authIsReady && store.dataIsReady'>
     <BudgetBoxes />
     <div @click='redirectHistory' class='historyContainer'>
-      <div class='buttonStyle' style='width: 51px;'>History</div>
+      <div class='buttonStyle2' style='width: 51px;'>History</div>
     </div>
   </div>
   <div v-else class='loadingContainer'>
