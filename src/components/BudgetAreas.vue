@@ -30,6 +30,7 @@ import { computed, ref } from 'vue';
 import { updateData } from '../firebase/functions.js';
 import BudgetArea from './BudgetArea.vue';
 import { getTotalPercent, getFirstDayOfWeek, getFirstDayOfMonth } from '../utilities/calculations.js';
+import { successAlertDuration } from "@/utilities/constants";
 import Plus from 'vue-material-design-icons/Plus.vue';
 import Check from 'vue-material-design-icons/Check.vue'
 
@@ -83,7 +84,7 @@ export default {
           responseSuccess.value = true;
           setTimeout(() => {
             responseSuccess.value = false;
-          }, 1000);
+          }, successAlertDuration);
         }
         else { // error
           errorMessage.value = "Error Saving to Database"

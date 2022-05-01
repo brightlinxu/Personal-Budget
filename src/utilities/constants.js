@@ -1,0 +1,1 @@
+export const successAlertDuration = 2000;

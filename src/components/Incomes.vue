@@ -28,6 +28,7 @@ import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import { getIncomeAfterTax, getYearlyIncome } from '../utilities/calculations.js';
 import { updateData } from '../firebase/functions.js';
+import { successAlertDuration } from "@/utilities/constants";
 import Income from './Income.vue';
 import Plus from 'vue-material-design-icons/Plus.vue';
 import Check from 'vue-material-design-icons/Check.vue';
@@ -69,7 +70,7 @@ export default {
           responseSuccess.value = true;
           setTimeout(() => {
             responseSuccess.value = false;
-          }, 1000);
+          }, successAlertDuration);
         }
         else { // error
           errorMessage.value = "Error Saving to Database";

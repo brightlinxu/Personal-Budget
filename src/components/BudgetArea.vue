@@ -103,7 +103,7 @@ export default {
   margin: -8px -8px;
 }
 .budgetDeleteIcon:hover {
-  background-color: #D0E2EE;
+  background-color: #9abbed;
 }
 
 .budgetInputs {

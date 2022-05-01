@@ -38,6 +38,7 @@ input {
   margin: 0;
   padding: 0;
   border-width: 0;
+  border-style: solid;
   display: block;
   width: 100%;
 }
@@ -70,13 +71,15 @@ button {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  transition: 0.15s;
+  transition: 0.1s;
 }
 .buttonStyle:hover {
-  background-color: #D0E2EE;
+  background-color: #5f82b8;
+  color: white;
 }
 .buttonStyle:active {
-  background-color: #c3d5e0;
+  background-color: #5472a1;
+  color: white;
 }
 
 .buttonStyle2 {
@@ -85,17 +88,19 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: #D0E2EE;
+  background-color: #5f82b8;
+  color: white;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  transition: 0.1s;
 }
 .buttonStyle2:hover {
-  background-color: #c3d5e0;
+  background-color: #5472a1;
 }
 .buttonStyle2:active {
-  background-color: #b8c9d4;
+  background-color: #48618a;
 }
 
 .cutOverflow {
