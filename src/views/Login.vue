@@ -5,14 +5,14 @@
       <form @submit.prevent='handleSubmit'>
         <div class="loginFormContainer">
           <div class="loginInputContainer">
-            <label>Email:</label>
+            <label>Email</label>
             <input class='loginInput' name='email' v-model='email'>
           </div>
           <div>
-            <label>Password:</label>
+            <label>Password</label>
             <input class='loginInput' type='password' name='password' v-model='password'>
           </div>
-          <div v-if='error' class="loginError">Invalid Email/Password</div>
+          <div v-if='error' class="loginError">Invalid Email or Password</div>
         </div>
         <button class='buttonStyle2 loginButton'>Login</button>
       </form>

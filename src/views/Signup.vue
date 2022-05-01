@@ -1,25 +1,31 @@
 <template>
-  <form @submit.prevent='handleSubmit'>
-    <h2>Sign Up</h2>
-    <div class='individualContainer'>
-      <label for="firstName">First Name:</label>
-      <input type='text' name='firstName' v-model='firstName' required>
+  <div class="signupContainerPosition">
+    <div class="signupContainer">
+      <div class="signupTitle">Sign Up</div>
+      <form @submit.prevent='handleSubmit'>
+        <div class="signupFormContainer">
+          <div class='signupInputContainer'>
+            <label>First Name</label>
+            <input class='signupInput' type='text' name='firstName' v-model='firstName' required>
+          </div>
+          <div class='signupInputContainer'>
+            <label>Last Name</label>
+            <input class='signupInput' type='text' name='lastName' v-model='lastName' required>
+          </div>
+          <div class='signupInputContainer'>
+            <label>Email</label>
+            <input class='signupInput' type='email' name='email' v-model='email' required>
+          </div>
+          <div>
+            <label >Password</label>
+            <input class='signupInput' type='password' name='password' v-model='password' required>
+          </div>
+          <div v-if='error'>{{ error }}</div>
+        </div>
+        <button class='buttonStyle2 signupButton'>Sign up</button>
+      </form>
     </div>
-    <div class='individualContainer'>
-      <label for="lastName">Last Name:</label>
-      <input type='text' name='lastName' v-model='lastName' required>
-    </div>
-    <div class='individualContainer'>
-      <label for="email">Email:</label>
-      <input type='email' name='email' v-model='email' required>
-    </div>
-    <div class='individualContainer'>
-      <label for="password">Password:</label>
-      <input type='password' name='password' v-model='password' required>
-    </div>
-    <button class='buttonStyle' style='margin: 20px 90px;'>Sign up</button>
-    <div v-if='error'>{{ error }}</div>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -63,10 +69,60 @@ export default {
 </script>
 
 <style scoped>
-.individualContainer {
+.signupContainerPosition {
   display: flex;
-  justify-content: space-between;
-  width: 240px;
-  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+.signupContainer {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgb(38 96 136 / 20%);
+}
+
+.signupTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.signupFormContainer {
+  margin: 30px 0 30px 0;
+}
+
+.signupInputContainer {
+  margin-bottom: 20px;
+}
+
+.signupInput {
+  border-color: lightgrey;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 10px 5px;
+  width: 200px;
+}
+
+.signupError {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+  color: red;
+}
+
+.signupButton {
+  width: 100%;
+  border-radius: 40px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.noAccount {
+  text-align: center;
+  font-size: 13px;
+  color: #6b88b5;
+  cursor: pointer;
+  margin-top: 20px;
 }
 </style>
