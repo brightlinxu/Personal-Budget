@@ -17,7 +17,7 @@
             <label class="floatingLabel" data-content="Email" for="signupEmail"/>
           </div>
           <div>
-            <input class='floatingInput signupInput' type='text' placeholder='Password' name='Password' v-model='password' id="signupPassword">
+            <input class='floatingInput signupInput' type='password' placeholder='Password' name='Password' v-model='password' id="signupPassword">
             <label class="floatingLabel" data-content="Password" for="signupPassword"/>
           </div>
           <div v-if='error' class="signupError">{{ error }}</div>

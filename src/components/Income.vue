@@ -94,7 +94,7 @@ export default {
   margin: -8px -8px;
 }
 .incomeDeleteIcon:hover {
-  background-color: #9abbed;
+  background-color: rgba(3 105 161 / 0.25);
 }
 
 .incomeInputs {
