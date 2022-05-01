@@ -5,20 +5,20 @@
       <form @submit.prevent='handleSubmit' id="signupForm">
         <div class="signupFormContainer">
           <div class='signupInputContainer'>
-            <label>First Name</label>
-            <input class='signupInput' type='text' name='firstName' v-model='firstName'>
+            <input class='floatingInput signupInput' type='text' placeholder='First Name' name='' v-model='firstName' id="signupFirstName">
+            <label class="floatingLabel" data-content="First Name" for="signupFirstName"/>
           </div>
           <div class='signupInputContainer'>
-            <label>Last Name</label>
-            <input class='signupInput' type='text' name='lastName' v-model='lastName'>
+            <input class='floatingInput signupInput' type='text' placeholder='Last Name' name='Email' v-model='lastName' id="signupLastName">
+            <label class="floatingLabel" data-content="Last Name" for="signupLastName"/>
           </div>
           <div class='signupInputContainer'>
-            <label>Email</label>
-            <input class='signupInput' type='text' name='email' v-model='email'>
+            <input class='floatingInput signupInput' type='text' placeholder='Email' name='Email' v-model='email' id="signupEmail">
+            <label class="floatingLabel" data-content="Email" for="signupEmail"/>
           </div>
           <div>
-            <label >Password</label>
-            <input class='signupInput' type='password' name='password' v-model='password'>
+            <input class='floatingInput signupInput' type='text' placeholder='Password' name='Password' v-model='password' id="signupPassword">
+            <label class="floatingLabel" data-content="Password" for="signupPassword"/>
           </div>
           <div v-if='error' class="signupError">{{ error }}</div>
         </div>
@@ -123,7 +123,7 @@ export default {
 
 .signupContainer {
   background: white;
-  padding: 30px;
+  padding: 30px 30px 35px 30px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgb(38 96 136 / 20%);
 }
@@ -142,18 +142,15 @@ export default {
 }
 
 .signupInput {
-  border-color: lightgrey;
-  border-radius: 5px;
-  border-width: 1px;
-  padding: 7px;
   width: 250px;
   font-size: 15px;
 }
 
 .signupError {
+  position: absolute;
   width: 250px;
   font-size: 13px;
-  margin-top: 10px;
+  margin-top: 5px;
   color: red;
 }
 
@@ -179,5 +176,9 @@ export default {
   color: #0369a1;
   cursor: pointer;
   margin-left: 5px;
+}
+
+.floatingLabel::before {
+  color: #0369a1;
 }
 </style>

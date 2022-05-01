@@ -5,12 +5,12 @@
       <form @submit.prevent='handleSubmit' id="loginForm">
         <div class="loginFormContainer">
           <div class="loginInputContainer">
-            <label>Email</label>
-            <input class='loginInput' type='text' name='email' v-model='email'>
+            <input class='floatingInput loginInput' type='text' placeholder='Email' name='Email' v-model='email' id="loginEmail">
+            <label class="floatingLabel" data-content="Email" for="loginEmail"/>
           </div>
           <div>
-            <label>Password</label>
-            <input class='loginInput' type='password' name='password' v-model='password'>
+            <input class='floatingInput loginInput' type='password' placeholder='Password' name='Password' v-model='password' id="loginPassword">
+            <label class="floatingLabel" data-content="Password" for="loginPassword" />
           </div>
           <div v-if='error' class="loginError">{{ error }}</div>
         </div>
@@ -103,10 +103,6 @@ export default {
 }
 
 .loginInput {
-  border-color: lightgrey;
-  border-radius: 5px;
-  border-width: 1px;
-  padding: 7px;
   width: 250px;
   font-size: 15px;
 }
@@ -141,5 +137,9 @@ export default {
   color: #0369a1;
   cursor: pointer;
   margin-left: 5px;
+}
+
+.floatingLabel::before {
+  color: #0369a1;
 }
 </style>
