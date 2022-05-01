@@ -70,22 +70,19 @@ export default {
       let separateIndex = spent.value.indexOf('$');
 
       if (separateIndex === -1) {
-        console.log('USE $');
-        errorText.value = 'Please use $';
+        errorText.value = 'Please use $ (EXPENSE $X.XX)';
         return;
       }
 
       let label = spent.value.substring(0, separateIndex).trim();
       let amount = parseFloat(spent.value.substring(separateIndex + 1).trim());
 
-      if (amount.toFixed(2) - amount !== 0) {
-        console.log('over 2 decimals');
-        errorText.value = 'Please enter money as $X.XX';
+      if (label === '') {
+        errorText.value = 'Please enter expense before $'
         return;
       }
-      if (label === '') {
-        console.log('label is empty');
-        errorText.value = 'Please enter label before $'
+      if (amount.toFixed(2) - amount !== 0) {
+        errorText.value = 'Please enter money in $X.XX format';
         return;
       }
 
@@ -424,9 +421,9 @@ export default {
 
 .budgetBoxErrorText {
   position: absolute;
-  transform: translate(-32px, 29px);
+  transform: translate(-32px, 32px);
   width: 185px;
-  font-size: 13px;
+  font-size: 11px;
   color: red;
 }
 </style>
