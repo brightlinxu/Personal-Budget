@@ -24,6 +24,10 @@
         </div>
         <button class='buttonStyle2 signupButton'>Sign up</button>
       </form>
+      <div class="hasAccountContainer">
+        <span>Have an account?</span>
+        <span class="hasAccount" @click="handleHasAccountClick">Login</span>
+      </div>
     </div>
   </div>
 </template>
@@ -85,11 +89,23 @@ export default {
       }
     }
 
+    const handleHasAccountClick = () => {
+      router.push('/login');
+    }
+
     onMounted(() => {
       document.title = 'Signup - Budget';
     });
 
-    return { firstName, lastName, email, password, handleSubmit, error };
+    return {
+      firstName,
+      lastName,
+      email,
+      password,
+      handleSubmit,
+      error,
+      handleHasAccountClick
+    };
   }
 }
 </script>
@@ -143,5 +159,17 @@ export default {
   border-radius: 40px;
   padding: 10px;
   font-size: 15px;
+}
+
+.hasAccountContainer {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.hasAccount {
+  color: #6b88b5;
+  cursor: pointer;
+  margin-left: 5px;
 }
 </style>

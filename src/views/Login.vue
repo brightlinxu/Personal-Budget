@@ -16,7 +16,10 @@
         </div>
         <button class='buttonStyle2 loginButton'>Login</button>
       </form>
-      <div class="noAccount" @click="handleNoAccountClick">Don't have an account?</div>
+      <div class="noAccountContainer">
+        <span >Don't have an account?</span>
+        <span class="noAccount" @click="handleNoAccountClick">Sign up</span>
+      </div>
     </div>
   </div>
 </template>
@@ -119,11 +122,15 @@ export default {
   font-size: 15px;
 }
 
-.noAccount {
+.noAccountContainer {
   text-align: center;
   font-size: 13px;
+  margin-top: 20px;
+}
+
+.noAccount {
   color: #6b88b5;
   cursor: pointer;
-  margin-top: 20px;
+  margin-left: 5px;
 }
 </style>
