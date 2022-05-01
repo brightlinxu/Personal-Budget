@@ -6,13 +6,13 @@
         <div class="loginFormContainer">
           <div class="loginInputContainer">
             <label>Email</label>
-            <input class='loginInput' name='email' v-model='email'>
+            <input class='loginInput' type='text' name='email' v-model='email'>
           </div>
           <div>
             <label>Password</label>
             <input class='loginInput' type='password' name='password' v-model='password'>
           </div>
-          <div v-if='error' class="loginError">Invalid Email or Password</div>
+          <div v-if='error' class="loginError">{{ error }}</div>
         </div>
         <button class='buttonStyle2 loginButton'>Login</button>
       </form>
@@ -44,7 +44,8 @@ export default {
         router.push('/budget');
       }
       catch (err) {
-        error.value = err.message;
+        console.log(err.message);
+        error.value = "Invalid Email or Password";
       }
     }
 
@@ -100,12 +101,12 @@ export default {
   border-radius: 5px;
   border-width: 1px;
   padding: 10px 5px;
-  width: 200px;
+  width: 250px;
 }
 
 .loginError {
+  width: 250px;
   font-size: 13px;
-  text-align: center;
   margin-top: 10px;
   color: red;
 }
