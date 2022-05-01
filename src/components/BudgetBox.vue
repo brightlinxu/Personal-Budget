@@ -35,6 +35,9 @@
     </div>
     <div class='daysLeftText'>{{ timeUntilReset }} day{{ timeUntilReset === 1 ? '' : 's' }} left</div>
     <div @click.prevent='handleUndo' class='undoButton'><ArrowULeftTop :size='20'/></div>
+    <div class="budgetBoxErrorText">
+      {{ errorText }}
+    </div>
   </div>
 </template>
 
@@ -57,7 +60,9 @@ export default {
     }));
     const spent = ref(null);
     const inputFocused = ref(false);
-    const maxUndoStackSize = 8; 
+    const errorText = ref(null);
+
+    const maxUndoStackSize = 8;
 
 
     const handleNewSpentItem = () => {
@@ -66,14 +71,21 @@ export default {
 
       if (separateIndex === -1) {
         console.log('USE $');
+        errorText.value = 'Please use $';
         return;
       }
 
       let label = spent.value.substring(0, separateIndex).trim();
       let amount = parseFloat(spent.value.substring(separateIndex + 1).trim());
 
-      if (amount.toFixed(2) - amount !== 0 || label === '') {
-        console.log('over 2 decimals OR label is empty');
+      if (amount.toFixed(2) - amount !== 0) {
+        console.log('over 2 decimals');
+        errorText.value = 'Please enter money as $X.XX';
+        return;
+      }
+      if (label === '') {
+        console.log('label is empty');
+        errorText.value = 'Please enter label before $'
         return;
       }
 
@@ -90,6 +102,9 @@ export default {
 
       // update database with info
       updateData(store, store.state.data)
+
+      // set error message to nothing
+      errorText.value = null;
     }
 
     const handleRemoveSpentItem = (id) => {
@@ -251,7 +266,8 @@ export default {
       handleUndo,
       budgetUsed: computed(() => getBudgetAreaTotalUsed(area.value.spent)),
       budgetTotal: computed(() => area.value.amount /*getBudgetAreaTotalPerPeriod(area.value, store.state.data.budgetPeriod, store)*/),
-      timeUntilReset: computed(() => getDateDifference(getDate(), getNextDate()))
+      timeUntilReset: computed(() => getDateDifference(getDate(), getNextDate())),
+      errorText
     }
   },
   components: {
@@ -404,5 +420,13 @@ export default {
 .undoButton:hover {
   /* background-color: #BED8EA; */
   background-color: #D0E2EE;
+}
+
+.budgetBoxErrorText {
+  position: absolute;
+  transform: translate(-32px, 29px);
+  width: 185px;
+  font-size: 13px;
+  color: red;
 }
 </style>
