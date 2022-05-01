@@ -55,7 +55,7 @@ export default {
           lastName.value === '' ||
           email.value === '' ||
           password.value === '') {
-        error.value = "Fill in Everything";
+        error.value = "Please fill in everything";
         return;
       }
 
@@ -84,7 +84,7 @@ export default {
           errorMessage = 'You already have an account!'
         }
         else {
-          errorMessage = "Error"
+          errorMessage = "Error signing up"
         }
 
         error.value = errorMessage;

@@ -41,6 +41,12 @@ export default {
     const router = useRouter();
 
     const handleSubmit = async () => {
+      if (email.value === '' ||
+          password.value === '') {
+        error.value = "Please fill in everything";
+        return;
+      }
+
       try {
         await store.dispatch('login', { 
           email: email.value, 
