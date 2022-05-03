@@ -21,7 +21,7 @@ import SignupButton from './SignupButton.vue';
 import LogoutButton from './LogoutButton.vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 
 export default {
   setup() {
@@ -53,6 +53,9 @@ export default {
       window.addEventListener('scroll', updateScrollPosition);
     });
 
+    onUnmounted(() => {
+      window.removeEventListener('scroll', updateScrollPosition);
+    });
 
     return {
       authData: computed(() => store.state.authData),

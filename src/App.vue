@@ -1,12 +1,21 @@
 <template>
-  <Navbar />
+  <Navbar v-if="!isLandingPage"/>
   <router-view />
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import Navbar from './components/Navbar.vue';
 
 export default {
+  setup() {
+    const router = useRouter();
+
+    return {
+      isLandingPage: computed(() => router.currentRoute.value.path === '/')
+    }
+  },
   components: {
     Navbar
   }
