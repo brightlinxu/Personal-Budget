@@ -266,7 +266,8 @@ export default {
 
 .fadeInGoodbye-enter-active,
 .fadeInGoodbye-leave-active {
-  transition: all 2s linear;
+  transition: all 1.7s;
+  transition-delay: 0.3s;
 }
 .fadeInGoodbye-enter-from,
 .fadeInGoodbye-leave-to {
@@ -276,8 +277,7 @@ export default {
 
 .fadeInLaptop-enter-active,
 .fadeInLaptop-leave-active {
-  transition: all 2s linear;
-  transform: matrix(1, 0, 0, 1, 0, 0)
+  transition: all 2s;
 }
 .fadeInLaptop-enter-from,
 .fadeInLaptop-leave-to {
@@ -286,7 +286,7 @@ export default {
 
 .fadeInPhone-enter-active,
 .fadeInPhone-leave-active {
-  transition: all 2s linear;
+  transition: all 2s;
 }
 .fadeInPhone-enter-from,
 .fadeInPhone-leave-to {
