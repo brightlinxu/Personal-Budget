@@ -67,6 +67,8 @@ export default {
     const secondAnimationContainerSize = ref(2640);
 
     watch(scrollPosition, (curScrollVal) => {
+      if (curScrollVal < 0) return;
+      
       // first animation
       // const widthHeightScale = (windowWidth.value * 0.16) + 100;
       // firstAnimationContainerSize.value = `${widthHeightScale}vh`; // y = 0.16x + 30 is best line of fit where x = windowWidth and y = vh
