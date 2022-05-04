@@ -116,7 +116,6 @@ export default {
 
     const updateScrollPosition = () => {
       scrollPosition.value = window.scrollY;
-      console.log(scrollPosition.value)
     }
 
     const handleWindowResize = () => {
