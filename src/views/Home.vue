@@ -1,14 +1,24 @@
 <template>
   <div class="mostOuterContainer">
-    <div class="firstAnimationSizeContainer">
+    <div class="firstAnimationSizeContainer" id="firstAnimationSizeContainer">
       <div class="firstAnimationContainer">
-        <div class="goodbyeText">Goodbye</div>
-        <div class="laptopImg"><img src="/laptop3D2.png" alt="Laptop Render" width="450"/></div>
-        <div class="phoneImg"><img src="/phone3D2.png" alt="Phone Render" width="180"/></div>
+        <div class="goodbyeText">
+          <div class="goodbyeTextOpacity">Goodbye</div>
+          <div class="laptopImg"><img src="/laptop3D2.png" alt="Laptop Render" width="450"/></div>
+          <div class="phoneImg"><img src="/phone3D2.png" alt="Phone Render" width="180"/></div>
+        </div>
       </div>
-      <div class="firstAnimationPlaceholder" id="temp" />
+      <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
     </div>
-<!--    second animation starts here-->
+    <div class="secondAnimationSizeContainer" id="secondAnimationSizeContainer">
+      <div class="secondAnimationContainer">
+        <div class="secondAnimationText">Hello Simple Budgeting</div>
+      </div>
+    </div>
+  </div>
+  <div class="restOfLandingContainer">
+    <div @click="handleSignupClick" class='buttonStyle landingSignup'>Let's go!</div>
+    <div @click="handleLoginClick" class='landingLogin'>I already have an account</div>
   </div>
 <!--<div>-->
 <!--  <div>Welcome to my budgeting app!</div>-->
@@ -22,15 +32,17 @@
 <script>
 import { computed, onMounted, onUnmounted, watch, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const scrollPosition = ref();
     const windowWidth = ref();
 
-    const firstAnimationContainerSize = ref('250vh');
+    const firstAnimationContainerSize = ref('1200px');
     const firstAnimationTextSize = ref(1);
     const firstAnimationLaptopSize = ref(1);
     const firstAnimationPhoneSize = ref(1);
@@ -39,25 +51,45 @@ export default {
     const firstAnimationPhoneShiftX = ref(0);
     const firstAnimationPhoneShiftY = ref(0);
     const firstAnimationTextOpacity = ref(1);
+    const firstAnimationFinish = ref(true);
+    const secondAnimationStartPosition = ref();
+    const secondAnimationTextSize = ref(1);
+    const secondAnimationTextOpacity = ref(0);
+    const secondAnimationContainerSize = ref('2640px');
 
     watch(scrollPosition, (curScrollVal) => {
-      firstAnimationContainerSize.value = `${(windowWidth.value * 0.16) + 30}vh`; // y = 0.16x + 30 is best line of fit where x = windowWidth and y = vh
-      firstAnimationTextSize.value = 1 + (curScrollVal * 0.0005);
+      // first animation
+      // const widthHeightScale = (windowWidth.value * 0.16) + 100;
+      // firstAnimationContainerSize.value = `${widthHeightScale}vh`; // y = 0.16x + 30 is best line of fit where x = windowWidth and y = vh
+      const widthHeightScale = (windowWidth.value * 1.13) + 370;
+      firstAnimationContainerSize.value = `${widthHeightScale}px`; // y = 1.13x + 170 is best line of fit where x = windowWidth and y = vh
+      firstAnimationTextSize.value = 1 + (curScrollVal * 0.0004);
       firstAnimationLaptopSize.value = 1 + (curScrollVal * 0.002);
       firstAnimationPhoneSize.value = 1 + (curScrollVal * 0.002);
       firstAnimationLaptopShiftX.value = curScrollVal * -0.9;
       firstAnimationLaptopShiftY.value = curScrollVal * 0.24;
       firstAnimationPhoneShiftX.value = curScrollVal * 0.6;
       firstAnimationPhoneShiftY.value = curScrollVal * -0.22;
+      secondAnimationContainerSize.value = `${(windowWidth.value * -1.14) + 2400}px`
 
-      // if (curScrollVal / windowWidth.value > 0.5) { // when scroll value is half of window width
-      //   firstAnimationTextOpacity.value = 1 - (curScrollVal * 0.001);
-      // }
-
-      const opacityIndicator = document.getElementById('temp').getBoundingClientRect();
+      const opacityIndicator = document.getElementById('opacityIndicator').getBoundingClientRect();
+      firstAnimationFinish.value = opacityIndicator.bottom > window.innerHeight / 5;
+      secondAnimationStartPosition.value = opacityIndicator.bottom + curScrollVal + 100; // second animation will always start at the addition of the 2 values
       if (opacityIndicator.bottom <= window.innerHeight) {
         // opacity is ready to change
-        firstAnimationTextOpacity.value = 1 - (curScrollVal * 0.001);
+        firstAnimationTextOpacity.value = firstAnimationFinish.value ? (opacityIndicator.bottom / window.innerHeight) ** 3 : 0;
+      }
+      else {
+        firstAnimationTextOpacity.value = 1;
+      }
+
+      // second animation
+      if (curScrollVal > secondAnimationStartPosition.value) {
+        secondAnimationTextSize.value = Math.min(1 + ((curScrollVal - secondAnimationStartPosition.value) * 0.0002), 1.12);
+        secondAnimationTextOpacity.value = ((curScrollVal / secondAnimationStartPosition.value) - 1) * 2;
+      }
+      else {
+        secondAnimationTextOpacity.value = 0;
       }
     });
 
@@ -75,11 +107,19 @@ export default {
 
     const updateScrollPosition = () => {
       scrollPosition.value = window.scrollY;
-      // console.log(scrollPosition.value)
     }
 
     const handleWindowResize = () => {
       windowWidth.value = window.innerWidth;
+    }
+
+    const handleSignupClick = () => {
+      console.log('wat')
+      router.push('/signup');
+    }
+
+    const handleLoginClick = () => {
+      router.push('/login');
     }
 
     return {
@@ -92,7 +132,13 @@ export default {
       firstAnimationPhoneShiftX,
       firstAnimationPhoneShiftY,
       firstAnimationContainerSize,
-      firstAnimationTextOpacity
+      firstAnimationTextOpacity,
+      secondAnimationStartPosition,
+      secondAnimationTextSize,
+      secondAnimationTextOpacity,
+      secondAnimationContainerSize,
+      handleSignupClick,
+      handleLoginClick
     }
   }
 }
@@ -121,29 +167,82 @@ export default {
 
 .goodbyeText {
   font-size: 100px;
-  font-weight: 900;
-  font-family: sans-serif;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   transform: matrix(v-bind(firstAnimationTextSize), 0, 0, v-bind(firstAnimationTextSize), 0, 0);
+}
+
+.goodbyeTextOpacity {
   opacity: v-bind(firstAnimationTextOpacity);
 }
 
 .laptopImg {
   position: absolute;
-  top: 220px;
+  top: -20px;
   left: -330px;
   transform: matrix(v-bind(firstAnimationLaptopSize), 0, 0, v-bind(firstAnimationLaptopSize), v-bind(firstAnimationLaptopShiftX), v-bind(firstAnimationLaptopShiftY));
 }
 
 .phoneImg {
   position: absolute;
-  top: 110px;
+  top: -140px;
   left: 460px;
   transform: matrix(v-bind(firstAnimationPhoneSize), 0, 0, v-bind(firstAnimationPhoneSize), v-bind(firstAnimationPhoneShiftX), v-bind(firstAnimationPhoneShiftY));
 }
 
-.firstAnimationPlaceholder {
+.firstAnimationOpacityIndicator {
   position: absolute;
-  bottom: 20%;
+  bottom: 62%;
+}
+
+.secondAnimationSizeContainer {
+  height: 1000px;
+}
+
+.secondAnimationContainer {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  margin-top: -3000px;
+}
+
+.secondAnimationText {
+  font-size: 50px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  transform: matrix(v-bind(secondAnimationTextSize), 0, 0, v-bind(secondAnimationTextSize), 0, 0);
+  opacity: v-bind(secondAnimationTextOpacity);
+}
+
+.restOfLandingContainer {
+  margin: -10vh 0 30vh 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingSignup {
+  z-index: 10;
+  border-radius: 50px;
+  padding: 15px 40px;
+  background-color: #0369a1;
+  color: white;
+  font-size: 18px;
+  transition: 0.15s linear;
+}
+.landingSignup:hover {
+  transform: scale(1.05);
+}
+
+.landingLogin {
+  z-index: 10;
+  color: #0369a1;
+  cursor: pointer;
+  margin-top: 40px;
 }
 
 
