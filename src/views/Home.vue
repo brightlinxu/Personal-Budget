@@ -14,8 +14,8 @@
           </transition>
         </div>
       </div>
-      <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
     </div>
+    <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
     <div class="secondAnimationSizeContainer" id="secondAnimationSizeContainer">
       <div class="secondAnimationContainer">
         <div class="secondAnimationText">Hello Simple Budgeting</div>
@@ -47,12 +47,11 @@ export default {
 
     const scrollPosition = ref();
     const windowWidth = ref();
-    const browser = ref(null);
 
     const imgCounter = ref(0);
     const displayReady = ref(false);
 
-    const firstAnimationContainerSize = ref('1200px');
+    const firstAnimationContainerSize = ref(1200);
     const firstAnimationTextSize = ref(1);
     const firstAnimationLaptopSize = ref(1);
     const firstAnimationPhoneSize = ref(1);
@@ -65,14 +64,14 @@ export default {
     const secondAnimationStartPosition = ref();
     const secondAnimationTextSize = ref(1);
     const secondAnimationTextOpacity = ref(0);
-    const secondAnimationContainerSize = ref('2640px');
+    const secondAnimationContainerSize = ref(2640);
 
     watch(scrollPosition, (curScrollVal) => {
       // first animation
       // const widthHeightScale = (windowWidth.value * 0.16) + 100;
       // firstAnimationContainerSize.value = `${widthHeightScale}vh`; // y = 0.16x + 30 is best line of fit where x = windowWidth and y = vh
       const widthHeightScale = (windowWidth.value * 1.13) + 370;
-      firstAnimationContainerSize.value = `${widthHeightScale}px`; // y = 1.13x + 170 is best line of fit where x = windowWidth and y = vh
+      firstAnimationContainerSize.value = widthHeightScale; // y = 1.13x + 170 is best line of fit where x = windowWidth and y = vh
       firstAnimationTextSize.value = 1 + (curScrollVal * 0.0004);
       firstAnimationLaptopSize.value = 1 + (curScrollVal * 0.002);
       firstAnimationPhoneSize.value = 1 + (curScrollVal * 0.002);
@@ -80,7 +79,7 @@ export default {
       firstAnimationLaptopShiftY.value = curScrollVal * 0.24;
       firstAnimationPhoneShiftX.value = curScrollVal * 0.6;
       firstAnimationPhoneShiftY.value = curScrollVal * -0.22;
-      secondAnimationContainerSize.value = `${(windowWidth.value * -1.14) + 2400}px`
+      secondAnimationContainerSize.value = (windowWidth.value * -1.14) + 2400
 
       const opacityIndicator = document.getElementById('opacityIndicator').getBoundingClientRect();
       firstAnimationFinish.value = opacityIndicator.bottom > window.innerHeight / 5;
@@ -108,24 +107,6 @@ export default {
       window.addEventListener('scroll', updateScrollPosition);
       window.addEventListener('resize', handleWindowResize);
       handleWindowResize();
-
-      const userAgent = navigator.userAgent;
-
-      if (userAgent.match(/chrome|chromium|crios/i)) {
-        browser.value = "chrome";
-      }
-      else if (userAgent.match(/firefox|fxios/i)) {
-        browser.value = "firefox";
-      }
-      else if (userAgent.match(/safari/i)) {
-        browser.value = "safari";
-      }
-      else if (userAgent.match(/opr\//i)) {
-        browser.value = "opera";
-      }
-      else if (userAgent.match(/edg/i)) {
-        browser.value = "edge";
-      }
     });
 
     onUnmounted(() => {
@@ -135,6 +116,7 @@ export default {
 
     const updateScrollPosition = () => {
       scrollPosition.value = window.scrollY;
+      console.log(scrollPosition.value)
     }
 
     const handleWindowResize = () => {
@@ -165,17 +147,17 @@ export default {
       firstAnimationLaptopShiftY,
       firstAnimationPhoneShiftX,
       firstAnimationPhoneShiftY,
-      firstAnimationContainerSize,
+      firstAnimationContainerSize: computed(() => `${firstAnimationContainerSize.value}px`),
       firstAnimationTextOpacity,
       secondAnimationStartPosition,
       secondAnimationTextSize,
       secondAnimationTextOpacity,
-      secondAnimationContainerSize,
+      secondAnimationContainerSize: computed(() => `${secondAnimationContainerSize.value}px`),
       handleSignupClick,
       handleLoginClick,
       handleImgLoad,
       displayReady,
-      isSafari: computed(() => browser.value === 'safari')
+      firstAnimationOpacityIndicatorMargin: computed(() => `-${firstAnimationContainerSize.value * 0.38}px`)
     }
   }
 }
@@ -208,10 +190,12 @@ export default {
   font-weight: 700;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   transform: matrix(v-bind(firstAnimationTextSize), 0, 0, v-bind(firstAnimationTextSize), 0, 0);
+  will-change: transform;
 }
 
 .goodbyeTextOpacity {
   opacity: v-bind(firstAnimationTextOpacity);
+  will-change: opacity;
 }
 
 .laptopImg {
@@ -219,6 +203,7 @@ export default {
   top: -20px;
   left: -330px;
   transform: matrix(v-bind(firstAnimationLaptopSize), 0, 0, v-bind(firstAnimationLaptopSize), v-bind(firstAnimationLaptopShiftX), v-bind(firstAnimationLaptopShiftY));
+  will-change: transform;
 }
 
 .phoneImg {
@@ -226,15 +211,15 @@ export default {
   top: -140px;
   left: 460px;
   transform: matrix(v-bind(firstAnimationPhoneSize), 0, 0, v-bind(firstAnimationPhoneSize), v-bind(firstAnimationPhoneShiftX), v-bind(firstAnimationPhoneShiftY));
+  will-change: transform;
 }
 
 .firstAnimationOpacityIndicator {
-  position: absolute;
-  bottom: 62%;
+  margin-top: v-bind(firstAnimationOpacityIndicatorMargin);
 }
 
 .secondAnimationSizeContainer {
-  height: 1000px;
+  height: 1900px;
 }
 
 .secondAnimationContainer {
@@ -288,7 +273,7 @@ export default {
 
 .fadeInGoodbye-enter-active,
 .fadeInGoodbye-leave-active {
-  transition: all 1.7s;
+  transition: all 1.5s;
   transition-delay: 0.3s;
 }
 .fadeInGoodbye-enter-from,
@@ -299,20 +284,20 @@ export default {
 
 .fadeInLaptop-enter-active,
 .fadeInLaptop-leave-active {
-  transition: all 2s;
+  transition: all 1.8s;
 }
 .fadeInLaptop-enter-from,
 .fadeInLaptop-leave-to {
-  transform: matrix(0.7, 0, 0, 0.7, 180, -60)
+  transform: matrix(0.5, 0, 0, 0.5, 250, -80)
 }
 
 .fadeInPhone-enter-active,
 .fadeInPhone-leave-active {
-  transition: all 2s;
+  transition: all 1.8s;
 }
 .fadeInPhone-enter-from,
 .fadeInPhone-leave-to {
-  transform: matrix(0.6, 0, 0, 0.6, -180, 10)
+  transform: matrix(0.5, 0, 0, 0.5, -250, 20)
 }
 
 
