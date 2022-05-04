@@ -47,6 +47,7 @@ export default {
 
     const scrollPosition = ref();
     const windowWidth = ref();
+    const browser = ref(null);
 
     const imgCounter = ref(0);
     const displayReady = ref(false);
@@ -107,6 +108,24 @@ export default {
       window.addEventListener('scroll', updateScrollPosition);
       window.addEventListener('resize', handleWindowResize);
       handleWindowResize();
+
+      const userAgent = navigator.userAgent;
+
+      if (userAgent.match(/chrome|chromium|crios/i)) {
+        browser.value = "chrome";
+      }
+      else if (userAgent.match(/firefox|fxios/i)) {
+        browser.value = "firefox";
+      }
+      else if (userAgent.match(/safari/i)) {
+        browser.value = "safari";
+      }
+      else if (userAgent.match(/opr\//i)) {
+        browser.value = "opera";
+      }
+      else if (userAgent.match(/edg/i)) {
+        browser.value = "edge";
+      }
     });
 
     onUnmounted(() => {
@@ -155,7 +174,8 @@ export default {
       handleSignupClick,
       handleLoginClick,
       handleImgLoad,
-      displayReady
+      displayReady,
+      isSafari: computed(() => browser.value === 'safari')
     }
   }
 }
@@ -175,6 +195,7 @@ export default {
 
 .firstAnimationContainer {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   display: flex;
   justify-content: center;
@@ -218,6 +239,7 @@ export default {
 
 .secondAnimationContainer {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   display: flex;
   justify-content: center;
