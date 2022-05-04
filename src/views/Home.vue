@@ -3,9 +3,15 @@
     <div class="firstAnimationSizeContainer" id="firstAnimationSizeContainer">
       <div class="firstAnimationContainer">
         <div class="goodbyeText">
-          <div class="goodbyeTextOpacity">Goodbye</div>
-          <div class="laptopImg"><img src="/laptop3D2.png" alt="Laptop Render" width="450"/></div>
-          <div class="phoneImg"><img src="/phone3D2.png" alt="Phone Render" width="180"/></div>
+          <transition name="fadeInGoodbye" appear>
+            <div class="goodbyeTextOpacity" v-show="displayReady">Goodbye</div>
+          </transition>
+          <transition name="fadeInLaptop" appear>
+            <div class="laptopImg" v-show="displayReady"><img src="/laptop3D2.png" alt="Laptop Render" width="450" @load="handleImgLoad"/></div>
+          </transition>
+          <transition name="fadeInPhone" appear>
+            <div class="phoneImg" v-show="displayReady"><img src="/phone3D2.png" alt="Phone Render" width="180" @load="handleImgLoad"/></div>
+          </transition>
         </div>
       </div>
       <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
@@ -41,6 +47,9 @@ export default {
 
     const scrollPosition = ref();
     const windowWidth = ref();
+
+    const imgCounter = ref(0);
+    const displayReady = ref(false);
 
     const firstAnimationContainerSize = ref('1200px');
     const firstAnimationTextSize = ref(1);
@@ -114,12 +123,18 @@ export default {
     }
 
     const handleSignupClick = () => {
-      console.log('wat')
       router.push('/signup');
     }
 
     const handleLoginClick = () => {
       router.push('/login');
+    }
+
+    const handleImgLoad = () => {
+      imgCounter.value += 1;
+      if (imgCounter.value === 2) {
+        displayReady.value = true;
+      }
     }
 
     return {
@@ -138,7 +153,9 @@ export default {
       secondAnimationTextOpacity,
       secondAnimationContainerSize,
       handleSignupClick,
-      handleLoginClick
+      handleLoginClick,
+      handleImgLoad,
+      displayReady
     }
   }
 }
@@ -243,6 +260,37 @@ export default {
   color: #0369a1;
   cursor: pointer;
   margin-top: 40px;
+}
+
+
+
+.fadeInGoodbye-enter-active,
+.fadeInGoodbye-leave-active {
+  transition: all 2s linear;
+}
+.fadeInGoodbye-enter-from,
+.fadeInGoodbye-leave-to {
+  opacity: 0;
+  transform: matrix(0.7, 0, 0, 0.7, 0, 0)
+}
+
+.fadeInLaptop-enter-active,
+.fadeInLaptop-leave-active {
+  transition: all 2s linear;
+  transform: matrix(1, 0, 0, 1, 0, 0)
+}
+.fadeInLaptop-enter-from,
+.fadeInLaptop-leave-to {
+  transform: matrix(0.7, 0, 0, 0.7, 180, -60)
+}
+
+.fadeInPhone-enter-active,
+.fadeInPhone-leave-active {
+  transition: all 2s linear;
+}
+.fadeInPhone-enter-from,
+.fadeInPhone-leave-to {
+  transform: matrix(0.6, 0, 0, 0.6, -180, 10)
 }
 
 
