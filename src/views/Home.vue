@@ -68,7 +68,7 @@ export default {
 
     watch(scrollPosition, (curScrollVal) => {
       if (curScrollVal < 0) return;
-      
+
       // first animation
       // const widthHeightScale = (windowWidth.value * 0.16) + 100;
       // firstAnimationContainerSize.value = `${widthHeightScale}vh`; // y = 0.16x + 30 is best line of fit where x = windowWidth and y = vh
@@ -170,25 +170,29 @@ export default {
   flex-direction: column;
   align-items: center;
   contain: paint;
+  width: 100vw;
 }
 
 .firstAnimationSizeContainer {
   height: v-bind(firstAnimationContainerSize);
-}
-
-.firstAnimationContainer {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+}
+
+.firstAnimationContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85vh;
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
 }
 
 .goodbyeText {
   font-size: 100px;
   font-weight: 700;
+  margin-top: -8%;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   transform: matrix(v-bind(firstAnimationTextSize), 0, 0, v-bind(firstAnimationTextSize), 0, 0);
   will-change: transform;
@@ -230,7 +234,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85vh;
+  height: 87vh;
   margin-top: -3000px;
 }
 
