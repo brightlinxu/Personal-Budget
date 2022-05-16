@@ -244,7 +244,7 @@ export default {
 }
 @media only screen and (max-width: 800px) {
   .laptopImg {
-    top: -280px;
+    top: -270px;
     left: -60px;
   }
 }
@@ -258,7 +258,7 @@ export default {
 }
 @media only screen and (max-width: 800px) {
   .phoneImg {
-    top: 100px;
+    top: 80px;
     left: 80px;
   }
 }
@@ -280,6 +280,11 @@ export default {
   align-items: center;
   height: 87vh;
   margin-top: -3000px;
+}
+@media only screen and (max-width: 800px) {
+  .secondAnimationContainer {
+    height: 92vh;
+  }
 }
 
 .secondAnimationText {
@@ -303,6 +308,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media only screen and (max-width: 800px) {
+  .restOfLandingContainer {
+    margin: -10vh 0 30vh 0;
+  }
 }
 
 .landingSignup {
