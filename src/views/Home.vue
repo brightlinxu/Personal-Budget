@@ -278,12 +278,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 89vh;
+  height: 90vh;
   margin-top: -3000px;
 }
 @media only screen and (max-width: 800px) {
   .secondAnimationContainer {
-    height: 93vh;
+    height: 95vh;
   }
 }
 
