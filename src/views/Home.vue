@@ -337,62 +337,62 @@ export default {
 
 
 
-/*.fadeInGoodbye-enter-active,*/
-/*.fadeInGoodbye-leave-active {*/
-/*  transition: all 1.5s;*/
-/*  transition-delay: 0.3s;*/
-/*}*/
-/*.fadeInGoodbye-enter-from,*/
-/*.fadeInGoodbye-leave-to {*/
-/*  opacity: 0;*/
-/*  transform: matrix(0.7, 0, 0, 0.7, 0, 0)*/
-/*}*/
+.fadeInGoodbye-enter-active,
+.fadeInGoodbye-leave-active {
+  transition: all 1.5s;
+  transition-delay: 0.3s;
+}
+.fadeInGoodbye-enter-from,
+.fadeInGoodbye-leave-to {
+  opacity: 0;
+  transform: matrix(0.7, 0, 0, 0.7, 0, 0)
+}
 
-/*.fadeInLaptop-enter-active,*/
-/*.fadeInLaptop-leave-active {*/
-/*  transition: all 1.8s;*/
-/*}*/
-/*.fadeInLaptop-enter-from,*/
-/*.fadeInLaptop-leave-to {*/
-/*  transform: matrix(0.5, 0, 0, 0.5, 250, -80)*/
-/*}*/
+.fadeInLaptop-enter-active,
+.fadeInLaptop-leave-active {
+  transition: all 1.8s;
+}
+.fadeInLaptop-enter-from,
+.fadeInLaptop-leave-to {
+  transform: matrix(0.5, 0, 0, 0.5, 250, -80)
+}
 
-/*.fadeInPhone-enter-active,*/
-/*.fadeInPhone-leave-active {*/
-/*  transition: all 1.8s;*/
-/*}*/
-/*.fadeInPhone-enter-from,*/
-/*.fadeInPhone-leave-to {*/
-/*  transform: matrix(0.5, 0, 0, 0.5, -250, 20)*/
-/*}*/
-/*@media only screen and (max-width: 800px) {*/
-/*  .fadeInGoodbye-enter-active,*/
-/*  .fadeInGoodbye-leave-active {*/
-/*    transition: all 1.5s;*/
-/*    transition-delay: 0.3s;*/
-/*  }*/
-/*  .fadeInGoodbye-enter-from,*/
-/*  .fadeInGoodbye-leave-to {*/
-/*    opacity: 0;*/
-/*    transform: matrix(0.7, 0, 0, 0.7, 0, 0)*/
-/*  }*/
+.fadeInPhone-enter-active,
+.fadeInPhone-leave-active {
+  transition: all 1.8s;
+}
+.fadeInPhone-enter-from,
+.fadeInPhone-leave-to {
+  transform: matrix(0.5, 0, 0, 0.5, -250, 20)
+}
+@media only screen and (max-width: 800px) {
+  .fadeInGoodbye-enter-active,
+  .fadeInGoodbye-leave-active {
+    transition: all 1.5s;
+    transition-delay: 0.3s;
+  }
+  .fadeInGoodbye-enter-from,
+  .fadeInGoodbye-leave-to {
+    opacity: 0;
+    transform: matrix(0.7, 0, 0, 0.7, 0, 0)
+  }
 
-/*  .fadeInLaptop-enter-active,*/
-/*  .fadeInLaptop-leave-active {*/
-/*    transition: all 1.8s;*/
-/*  }*/
-/*  .fadeInLaptop-enter-from,*/
-/*  .fadeInLaptop-leave-to {*/
-/*    transform: matrix(0.5, 0, 0, 0.5, 250, -80)*/
-/*  }*/
+  .fadeInLaptop-enter-active,
+  .fadeInLaptop-leave-active {
+    transition: all 1.8s;
+  }
+  .fadeInLaptop-enter-from,
+  .fadeInLaptop-leave-to {
+    transform: matrix(0.4, 0, 0, 0.4, 20, 135)
+  }
 
-/*  .fadeInPhone-enter-active,*/
-/*  .fadeInPhone-leave-active {*/
-/*    transition: all 1.8s;*/
-/*  }*/
-/*  .fadeInPhone-enter-from,*/
-/*  .fadeInPhone-leave-to {*/
-/*    transform: matrix(0.5, 0, 0, 0.5, -250, 20)*/
-/*  }*/
-/*}*/
+  .fadeInPhone-enter-active,
+  .fadeInPhone-leave-active {
+    transition: all 1.8s;
+  }
+  .fadeInPhone-enter-from,
+  .fadeInPhone-leave-to {
+    transform: matrix(0.5, 0, 0, 0.5, -30, -110)
+  }
+}
 </style>
