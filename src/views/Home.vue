@@ -383,7 +383,7 @@ export default {
   }
   .fadeInLaptop-enter-from,
   .fadeInLaptop-leave-to {
-    transform: matrix(0.4, 0, 0, 0.4, 20, 135)
+    transform: matrix(0.4, 0, 0, 0.4, 20, 125)
   }
 
   .fadeInPhone-enter-active,
@@ -392,7 +392,7 @@ export default {
   }
   .fadeInPhone-enter-from,
   .fadeInPhone-leave-to {
-    transform: matrix(0.5, 0, 0, 0.5, -30, -110)
+    transform: matrix(0.5, 0, 0, 0.5, -30, -120)
   }
 }
 </style>
