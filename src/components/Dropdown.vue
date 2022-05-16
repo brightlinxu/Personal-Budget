@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdownContainer noHighlight">
-    <div @click='toggleDropdown' v-click-away="onClickAway" class="dropdownHeader">
+  <div class="dropdownContainer noHighlight" v-click-away="onClickAway">
+    <div @click='toggleDropdown' class="dropdownHeader">
       {{ selectedOption }}
       <div class="dropdownChevron">
         <ChevronDown v-if="!visible" :size="18"/>

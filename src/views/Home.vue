@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
+    <div class="firstAnimationOpacityIndicator" id="opacityIndicator" >hi</div>
     <div class="secondAnimationSizeContainer" id="secondAnimationSizeContainer">
       <div class="secondAnimationContainer">
         <div class="secondAnimationText">Hello Simple Budgeting</div>
@@ -26,13 +26,6 @@
     <div @click="handleSignupClick" class='buttonStyle landingSignup'>Let's go!</div>
     <div @click="handleLoginClick" class='landingLogin'>I already have an account</div>
   </div>
-<!--<div>-->
-<!--  <div>Welcome to my budgeting app!</div>-->
-<!--  <br />-->
-<!--  <div>The development is still in progress. Although it's usable, I'm currently adding some more features, and the UI isn't finished.</div>-->
-<!--  <br />-->
-<!--  <div>Login or Signup to give it a try!</div>-->
-<!--</div>-->
 </template>
 
 <script>
