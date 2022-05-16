@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="firstAnimationOpacityIndicator" id="opacityIndicator" >hi</div>
+    <div class="firstAnimationOpacityIndicator" id="opacityIndicator" />
     <div class="secondAnimationSizeContainer" id="secondAnimationSizeContainer">
       <div class="secondAnimationContainer">
         <div class="secondAnimationText">Hello Simple Budgeting</div>
@@ -265,7 +265,6 @@ export default {
 
 .firstAnimationOpacityIndicator {
   margin-top: v-bind(firstAnimationOpacityIndicatorMargin);
-  z-index: 1000;
 }
 
 .secondAnimationSizeContainer {
@@ -294,7 +293,7 @@ export default {
 @media only screen and (max-width: 800px) {
   .secondAnimationText {
     font-size: 40px;
-    padding: 0 40px;
+    margin: 0 40px;
   }
 }
 
