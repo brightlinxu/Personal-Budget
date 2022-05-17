@@ -5,8 +5,8 @@
   <!--    <BudgetPeriod />-->
   <!--    <br />-->
       <div class="childContainer">
-        <Incomes :freqOptions='incomeOptions'/>
-        <BudgetAreas :durOptions='budgetAreaOptions'/>
+        <Incomes :freqOptions='incomeOptions' :isPhoneWidth="isPhoneWidth"/>
+        <BudgetAreas :durOptions='budgetAreaOptions' :isPhoneWidth="isPhoneWidth"/>
       </div>
       <div>total percentage of income used: {{ totalPercent }}%</div>
   <!--    <div>income after tax for current budget period: ${{ store.data.incomeForPeriod }}</div>-->
@@ -16,9 +16,8 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed, watch, onMounted } from 'vue';
+import { computed, watch, onMounted, onUnmounted, ref } from 'vue';
 import Incomes from '../components/Incomes.vue';
-// import BudgetPeriod from '../components/BudgetPeriod.vue';
 import BudgetAreas from '../components/BudgetAreas.vue';
 import { updateData } from '../firebase/functions.js';
 import { getTotalPercent } from '../utilities/calculations.js';
@@ -29,6 +28,8 @@ export default {
 
     const incomeOptions = store.state.options.incomes;
     const budgetAreaOptions = store.state.options.budgetAreas;
+
+    const windowWidth = ref();
 
     // watch for change in any store data
     watch(() => store.state.data && [store.state.data.budgetPeriod, store.state.data.yearlyTaxedIncome, store.state.data.budgetAreas], (cur) => {
@@ -55,7 +56,17 @@ export default {
 
     onMounted(() => {
       document.title = 'Settings - Budget';
+      window.addEventListener('resize', handleWindowResize);
+      handleWindowResize();
     });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleWindowResize);
+    });
+
+    const handleWindowResize = () => {
+      windowWidth.value = window.innerWidth;
+    }
 
 
     return {
@@ -63,10 +74,11 @@ export default {
       budgetAreaOptions,
       incomeOptions,
       totalPercent: computed(() => getTotalPercent(store, budgetAreaOptions)),
+      isPhoneWidth: computed(() => windowWidth.value < 550),
     }
   },
   components: {
-    Incomes, /*BudgetPeriod,*/ BudgetAreas
+    Incomes, BudgetAreas
   }
 }
 </script>

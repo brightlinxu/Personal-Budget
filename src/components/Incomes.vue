@@ -15,7 +15,7 @@
         <Income v-for='(elt, i) in store.data.incomes' :key='elt'
           :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
           :errorMessage="errorMessage" @changeOrderPositionLeft="handleChangeOrderPositionLeft"
-          @changeOrderPositionRight="handleChangeOrderPositionRight"
+          @changeOrderPositionRight="handleChangeOrderPositionRight" :isPhoneWidth="props.isPhoneWidth"
         />
       </TransitionGroup>
       <button @click='handleAddIncome' type="button" class="incomeAddButton">
@@ -37,7 +37,7 @@ import Plus from 'vue-material-design-icons/Plus.vue';
 import Check from 'vue-material-design-icons/Check.vue';
 
 export default {
-  props: ['freqOptions'],
+  props: ['freqOptions', 'isPhoneWidth'],
   setup(props) {
     const store = useStore();
 
@@ -117,7 +117,8 @@ export default {
       errorMessage,
       responseSuccess,
       handleChangeOrderPositionLeft,
-      handleChangeOrderPositionRight
+      handleChangeOrderPositionRight,
+      props
     }
   },
   components: {
@@ -193,7 +194,7 @@ export default {
   -ms-user-select: none;
   box-shadow: 0px 2px 4px rgb(21 51 71 / 20%);
   transition: 0.2s;
-  height: 200px;
+  height: 206px;
   margin: 0;
   padding: 0;
 }

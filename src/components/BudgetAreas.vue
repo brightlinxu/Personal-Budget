@@ -16,6 +16,7 @@
           :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
           @changeOrderPositionLeft="handleChangeOrderPositionLeft"
           @changeOrderPositionRight="handleChangeOrderPositionRight"
+          :isPhoneWidth="props.isPhoneWidth"
         />
       </TransitionGroup>
       <button @click='handleAddArea' type="button" class="budgetAddButton">
@@ -39,6 +40,7 @@ import Plus from 'vue-material-design-icons/Plus.vue';
 import Check from 'vue-material-design-icons/Check.vue'
 
 export default {
+  props: ['durOptions', 'isPhoneWidth'],
   setup(props) {
     const store = useStore();
     const FIRSTMONDAY = {
@@ -135,10 +137,10 @@ export default {
       errorMessage,
       responseSuccess,
       handleChangeOrderPositionLeft,
-      handleChangeOrderPositionRight
+      handleChangeOrderPositionRight,
+      props
     }
   },
-  props: ['durOptions'],
   components: {
     BudgetArea, Plus, Check
   }

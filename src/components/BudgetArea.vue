@@ -18,11 +18,13 @@
       <div class="bottomBudgetContainer">
         <div class="budgetOrderContainer">
           <div @click.prevent="changeOrderPositionLeft" class="budgetOrderLeft">
-            <ChevronLeft :size="18"/>
+            <ChevronUp v-if="props.isPhoneWidth" :size="18"/>
+            <ChevronLeft v-else :size="18"/>
           </div>
           <div class="budgetOrderNumber">{{ props.id + 1 }}</div>
           <div @click.prevent="changeOrderPositionRight" class="budgetOrderRight">
-            <ChevronRight :size="18"/>
+            <ChevronDown v-if="props.isPhoneWidth" :size="18"/>
+            <ChevronRight v-else :size="18"/>
           </div>
         </div>
         <div class="percentIncome">
@@ -46,9 +48,11 @@ import Dropdown from './Dropdown.vue';
 import WindowClose from 'vue-material-design-icons/WindowClose.vue'
 import ChevronLeft from "vue-material-design-icons/ChevronLeft";
 import ChevronRight from "vue-material-design-icons/ChevronRight";
+import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
 
 export default {
-  props: ['id', 'durOptions'],
+  props: ['id', 'durOptions', 'isPhoneWidth'],
   emits: ['removeArea', 'changeOrderPositionLeft', 'changeOrderPositionRight'],
   setup(props, { emit }) {
     const store = useStore();
@@ -98,7 +102,7 @@ export default {
     }
   },
   components: {
-    Dropdown, WindowClose, ChevronLeft, ChevronRight
+    Dropdown, WindowClose, ChevronLeft, ChevronRight, ChevronDown, ChevronUp
   }
 }
 </script>
@@ -176,14 +180,14 @@ export default {
 .budgetOrderLeft {
   cursor: v-bind(budgetOrderLeftCursor);
   color: v-bind(budgetOrderLeftColor);
-  margin-right: 2px;
+  margin-right: 4px;
   transform: translate(0, 4px);
 }
 
 .budgetOrderRight {
   cursor: v-bind(budgetOrderRightCursor);
   color: v-bind(budgetOrderRightColor);
-  margin-left: 2px;
+  margin-left: 4px;
   transform: translate(0, 4px);
 }
 

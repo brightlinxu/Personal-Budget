@@ -17,11 +17,13 @@
       </div>
       <div class="incomeOrderContainer">
         <div @click.prevent="changeOrderPositionLeft">
-          <ChevronLeft :size="18" class="incomeOrderLeft"/>
+          <ChevronUp v-if="props.isPhoneWidth" :size="18" class="incomeOrderLeft"/>
+          <ChevronLeft v-else :size="18" class="incomeOrderLeft"/>
         </div>
         <div class="incomeOrderNumber">{{ props.id + 1 }}</div>
         <div @click.prevent="changeOrderPositionRight">
-          <ChevronRight :size="18" class="incomeOrderRight"/>
+          <ChevronDown v-if="props.isPhoneWidth" :size="18" class="incomeOrderRight"/>
+          <ChevronRight v-else :size="18" class="incomeOrderRight"/>
         </div>
       </div>
     </div>
@@ -35,9 +37,11 @@ import Dropdown from './Dropdown.vue';
 import WindowClose from 'vue-material-design-icons/WindowClose.vue'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
+import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
 
 export default {
-  props: ['id', 'freqOptions', 'errorMessage'],
+  props: ['id', 'freqOptions', 'errorMessage', 'isPhoneWidth'],
   emits: ['removeIncome', 'changeOrderPositionLeft', 'changeOrderPositionRight'],
   setup(props, { emit }) {
     const store = useStore();
@@ -87,7 +91,7 @@ export default {
     }
   },
   components: {
-    Dropdown, WindowClose, ChevronLeft, ChevronRight
+    Dropdown, WindowClose, ChevronLeft, ChevronRight, ChevronDown, ChevronUp
   }
 }
 </script>
@@ -104,7 +108,7 @@ export default {
   border-radius: 8px;
   padding: 20px;
   background-color: white;
-  height: 160px;
+  height: 166px;
 }
 
 .incomeTopBar {
@@ -140,18 +144,19 @@ export default {
   display: flex;
   justify-content: center;
   cursor: default;
+  margin-top: 2px;
 }
 
 .incomeOrderLeft {
   cursor: v-bind(incomeOrderLeftCursor);
   color: v-bind(incomeOrderLeftColor);
-  margin-right: 2px;
+  margin-right: 4px;
 }
 
 .incomeOrderRight {
   cursor: v-bind(incomeOrderRightCursor);
   color: v-bind(incomeOrderRightColor);
-  margin-left: 2px;
+  margin-left: 4px;
 }
 
 .incomeOrderNumber {

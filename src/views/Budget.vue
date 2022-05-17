@@ -18,7 +18,7 @@
 <script>
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import BudgetBoxes from '../components/BudgetBoxes.vue';
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
@@ -27,17 +27,30 @@ export default {
     const store = useStore();
     const router = useRouter();
 
+    const windowWidth = ref();
+
     const redirectHistory = () => {
       router.push('history');
     }
 
     onMounted(() => {
       document.title = 'Home - Budget';
+      window.addEventListener('resize', handleWindowResize);
+      handleWindowResize();
     });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleWindowResize);
+    });
+
+    const handleWindowResize = () => {
+      windowWidth.value = window.innerWidth;
+    }
 
     return { 
       store: computed(() => store.state),
-      redirectHistory
+      redirectHistory,
+      isPhoneWidth: computed(() => windowWidth.value < 735),
     };
   },
   components: {
