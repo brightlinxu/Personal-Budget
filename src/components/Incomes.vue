@@ -11,10 +11,13 @@
       </div>
     </div>
     <form @submit.prevent='handleIncomesSave' id="incomesForm" class="incomeContainer incomeContainerNumContains">
-      <Income v-for='(elt, i) in store.data.incomes' :key='i'
-        :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
-        :errorMessage="errorMessage"
-      />
+      <TransitionGroup name="incomesList">
+        <Income v-for='(elt, i) in store.data.incomes' :key='elt'
+          :id='i' :freqOptions='freqOptions' @removeIncome='handleRemoveIncome'
+          :errorMessage="errorMessage" @changeOrderPositionLeft="handleChangeOrderPositionLeft"
+          @changeOrderPositionRight="handleChangeOrderPositionRight"
+        />
+      </TransitionGroup>
       <button @click='handleAddIncome' type="button" class="incomeAddButton">
         <div class="incomePlusIcon"><Plus :size='25'/></div>
         Add Income Source
@@ -90,13 +93,31 @@ export default {
       store.commit('setData', temp);
     }
 
+    const handleChangeOrderPositionLeft = (incomeId) => {
+      if (incomeId > 0) {
+        const tempData = store.state.data;
+        [tempData.incomes[incomeId], tempData.incomes[incomeId - 1]] = [tempData.incomes[incomeId - 1], tempData.incomes[incomeId]];
+        store.commit('setData', tempData);
+      }
+    }
+
+    const handleChangeOrderPositionRight = (incomeId) => {
+      if (incomeId < store.state?.data?.incomes?.length - 1) {
+        const tempData = store.state.data;
+        [tempData.incomes[incomeId], tempData.incomes[incomeId + 1]] = [tempData.incomes[incomeId + 1], tempData.incomes[incomeId]];
+        store.commit('setData', tempData);
+      }
+    }
+
     return {
       handleIncomesSave, 
       handleAddIncome,
       store: computed(() => store.state),
       handleRemoveIncome,
       errorMessage,
-      responseSuccess
+      responseSuccess,
+      handleChangeOrderPositionLeft,
+      handleChangeOrderPositionRight
     }
   },
   components: {
@@ -172,7 +193,7 @@ export default {
   -ms-user-select: none;
   box-shadow: 0px 2px 4px rgb(21 51 71 / 20%);
   transition: 0.2s;
-  height: 196px;
+  height: 200px;
   margin: 0;
   padding: 0;
 }
@@ -184,6 +205,10 @@ export default {
   box-shadow: -0.5px 4px 4px rgb(21 51 71 / 20%);
   transform: translate(0.5px, -2px);
   background-color: #c3d5e0;
+}
+
+.incomesList-move {
+  transition: all 0.5s ease;
 }
 
 @media only screen and (max-width: 550px) {

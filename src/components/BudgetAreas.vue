@@ -11,9 +11,13 @@
       </div>
     </div>
     <form @submit.prevent='handleBudgetAreasSave' id="budgetsForm" class="budgetContainer budgetContainerNumContains">
-      <BudgetArea v-for='(elt, i) in store.data.budgetAreas' :key='i'
-        :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
-      />
+      <TransitionGroup name="budgetsList">
+        <BudgetArea v-for='(elt, i) in store.data.budgetAreas' :key='elt'
+          :id='i' :durOptions='durOptions' @removeArea='handleRemoveArea'
+          @changeOrderPositionLeft="handleChangeOrderPositionLeft"
+          @changeOrderPositionRight="handleChangeOrderPositionRight"
+        />
+      </TransitionGroup>
       <button @click='handleAddArea' type="button" class="budgetAddButton">
         <div class="budgetPlusIcon"><Plus :size='25'/></div>
         Add Budget Area
@@ -104,6 +108,22 @@ export default {
       store.commit('setData', temp);
     }
 
+    const handleChangeOrderPositionLeft = (budgetId) => {
+      if (budgetId > 0) {
+        const tempData = store.state.data;
+        [tempData.budgetAreas[budgetId], tempData.budgetAreas[budgetId - 1]] = [tempData.budgetAreas[budgetId - 1], tempData.budgetAreas[budgetId]];
+        store.commit('setData', tempData);
+      }
+    }
+
+    const handleChangeOrderPositionRight = (budgetId) => {
+      if (budgetId < store.state?.data?.budgetAreas?.length - 1) {
+        const tempData = store.state.data;
+        [tempData.budgetAreas[budgetId], tempData.budgetAreas[budgetId + 1]] = [tempData.budgetAreas[budgetId + 1], tempData.budgetAreas[budgetId]];
+        store.commit('setData', tempData);
+      }
+    }
+
 
     return {
       store: computed(() => store.state),
@@ -113,7 +133,9 @@ export default {
       totalPercent: computed(() => getTotalPercent(store, props.durOptions)),
       totalIncomeUsed: computed(() => (getTotalPercent(store, props.durOptions) * store.state.data.incomeForPeriod / 100).toFixed(2)),
       errorMessage,
-      responseSuccess
+      responseSuccess,
+      handleChangeOrderPositionLeft,
+      handleChangeOrderPositionRight
     }
   },
   props: ['durOptions'],
@@ -207,6 +229,10 @@ export default {
   box-shadow: -0.5px 4px 4px rgb(21 51 71 / 20%);
   transform: translate(0.5px, -2px);
   background-color: #c3d5e0;
+}
+
+.budgetsList-move {
+  transition: all 0.5s ease;
 }
 
 @media only screen and (max-width: 550px) {

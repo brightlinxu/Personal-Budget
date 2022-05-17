@@ -3,32 +3,46 @@
     <div class='cutOverflow'>{{ item.label }}</div>
     <div :class='{ itemRightContainer: true, rightBefore: !hover || !clicked }'>
       <div class='leftSide'>${{ item.amount.toFixed(2) }}</div>
-      <div @click='removeSpentItem' class='delete'>delete</div>
+      <div @click='optionsClicked' class='options'>Options</div>
+      <div @click='removeSpentItem' class='delete'>Delete</div>
     </div>
   </div>
+<!--  <Modal>-->
+<!--    hi-->
+<!--  </Modal>-->
 </template>
 
 <script>
 import { ref } from 'vue';
+import Modal from "@/components/Modal";
 
 export default {
   props: ['id', 'item'],
-  emits: ['removeSpentItem'],
   setup(props, { emit }) {
     const hover = ref(false);
     const clicked = ref(false);
     const showTransition = ref(false);
+    const modalOpen = ref(false);
 
     const removeSpentItem = () => {
       emit('removeSpentItem', props.id);
+    }
+
+    const optionsClicked = () => {
+      modalOpen.value = true;
     }
 
     return {
       hover,
       clicked,
       showTransition,
-      removeSpentItem
+      removeSpentItem,
+      optionsClicked
     }
+  },
+  emits: ['removeSpentItem'],
+  components: {
+    Modal
   }
 }
 </script>
@@ -46,10 +60,10 @@ export default {
   margin: 1px;
   cursor: pointer;
   background-color: white;
-  /* overflow: hidden; */
+  /*overflow: hidden;*/
 }
 .itemContainer:hover {
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(245, 245, 245);
 }
 
 .itemRightContainer {
@@ -57,23 +71,33 @@ export default {
   align-items: center;
   height: 30px;
   transition: 0.08s linear;
+  /*overflow: hidden;*/
 }
 .rightBefore {
-  margin-right: -60px;
+  margin-right: -134px;
+}
+
+.options {
+  padding: 0 7px;
+  margin: 0px -10px 0px 10px;
+  position: relative;
+  color: #0369a1;
+  border-left: solid 1px lightgrey;
+}
+.options:hover {
+  color: #0c4a6e;
 }
 
 .delete {
-  padding: 5px 7px;
-  margin: 0px -12px 0px 10px;
+  padding: 0 7px;
+  margin: 0px -11px 0px 10px;
   border-radius: 0px 6px 6px 0px;
   position: relative;
-  background-color: red;
-  color: white;
-  /* color: red; */
+  color: red;
+  border-left: solid 1px lightgrey;
 }
 .delete:hover {
-  background-color: rgb(231, 0, 0);
-  /* background-color: rgb(255, 212, 212); */
+  color: rgb(200, 0, 0);
 }
 
 .label {

@@ -15,12 +15,23 @@
           <label for="budgetAmount" data-content="Amount" class="floatingLabel" />
         </div>
       </div>
-      <div class="percentIncome">
-        <div class="justPercent">
-          {{ percent }}%
+      <div class="bottomBudgetContainer">
+        <div class="budgetOrderContainer">
+          <div @click.prevent="changeOrderPositionLeft" class="budgetOrderLeft">
+            <ChevronLeft :size="18"/>
+          </div>
+          <div class="budgetOrderNumber">{{ props.id + 1 }}</div>
+          <div @click.prevent="changeOrderPositionRight" class="budgetOrderRight">
+            <ChevronRight :size="18"/>
+          </div>
         </div>
-        <div class="justOfIncome">
-          of income
+        <div class="percentIncome">
+          <div class="justPercent">
+            {{ percent }}%
+          </div>
+          <div class="justOfIncome">
+            of income
+          </div>
         </div>
       </div>
     </div>
@@ -33,10 +44,12 @@ import { ref, computed } from 'vue';
 import { getPercentOfIncome, getBudgetAmountPerYear } from '../utilities/calculations.js';
 import Dropdown from './Dropdown.vue';
 import WindowClose from 'vue-material-design-icons/WindowClose.vue'
+import ChevronLeft from "vue-material-design-icons/ChevronLeft";
+import ChevronRight from "vue-material-design-icons/ChevronRight";
 
 export default {
   props: ['id', 'durOptions'],
-  emits: ['removeArea'],
+  emits: ['removeArea', 'changeOrderPositionLeft', 'changeOrderPositionRight'],
   setup(props, { emit }) {
     const store = useStore();
 
@@ -60,17 +73,32 @@ export default {
       }
     }
 
+    const changeOrderPositionLeft = () => {
+      emit('changeOrderPositionLeft', props.id);
+    }
+
+    const changeOrderPositionRight = () => {
+      emit('changeOrderPositionRight', props.id);
+    }
+
 
     return {
       area,
       removeArea,
       percent: computed(() => getPercentOfIncome(getBudgetAmountPerYear(area.value, props.durOptions), store.state.data.yearlyTaxedIncome)),
       durOptionClicked,
-      handleKeyDown
+      handleKeyDown,
+      props,
+      changeOrderPositionLeft,
+      changeOrderPositionRight,
+      budgetOrderLeftColor: computed(() => props.id !== 0 ? 'black' : 'lightgrey'),
+      budgetOrderRightColor: computed(() => props.id !== store.state?.data?.budgetAreas?.length - 1 ? 'black' : 'lightgrey'),
+      budgetOrderLeftCursor: computed(() => props.id !== 0 ? 'pointer' : ''),
+      budgetOrderRightCursor: computed(() => props.id !== store.state?.data?.budgetAreas?.length - 1 ? 'pointer' : ''),
     }
   },
   components: {
-    Dropdown, WindowClose
+    Dropdown, WindowClose, ChevronLeft, ChevronRight
   }
 }
 </script>
@@ -114,11 +142,18 @@ export default {
   padding: 10px;
 }
 
+.bottomBudgetContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 10px;
+}
+
 .percentIncome {
   display: flex;
   justify-content: right;
   align-items: baseline;
-  margin: 10px -5px 0 0;
+  margin-right: -5px;
 }
 
 .justPercent {
@@ -129,5 +164,30 @@ export default {
 .justOfIncome {
   font-size: 14px;
   font-weight: 300;
+}
+
+.budgetOrderContainer {
+  display: flex;
+  justify-content: center;
+  cursor: default;
+  align-items: baseline;
+}
+
+.budgetOrderLeft {
+  cursor: v-bind(budgetOrderLeftCursor);
+  color: v-bind(budgetOrderLeftColor);
+  margin-right: 2px;
+  transform: translate(0, 4px);
+}
+
+.budgetOrderRight {
+  cursor: v-bind(budgetOrderRightCursor);
+  color: v-bind(budgetOrderRightColor);
+  margin-left: 2px;
+  transform: translate(0, 4px);
+}
+
+.budgetOrderNumber {
+  font-size: 14px;
 }
 </style>

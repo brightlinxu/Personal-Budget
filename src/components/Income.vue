@@ -15,6 +15,15 @@
           <label for="incomeAmount" data-content="Amount" class="floatingLabel" />
         </div>
       </div>
+      <div class="incomeOrderContainer">
+        <div @click.prevent="changeOrderPositionLeft">
+          <ChevronLeft :size="18" class="incomeOrderLeft"/>
+        </div>
+        <div class="incomeOrderNumber">{{ props.id + 1 }}</div>
+        <div @click.prevent="changeOrderPositionRight">
+          <ChevronRight :size="18" class="incomeOrderRight"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,10 +33,12 @@ import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import Dropdown from './Dropdown.vue';
 import WindowClose from 'vue-material-design-icons/WindowClose.vue'
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
 export default {
   props: ['id', 'freqOptions', 'errorMessage'],
-  emits: ['removeIncome'],
+  emits: ['removeIncome', 'changeOrderPositionLeft', 'changeOrderPositionRight'],
   setup(props, { emit }) {
     const store = useStore();
 
@@ -51,6 +62,14 @@ export default {
       }
     }
 
+    const changeOrderPositionLeft = () => {
+      emit('changeOrderPositionLeft', props.id);
+    }
+
+    const changeOrderPositionRight = () => {
+      emit('changeOrderPositionRight', props.id);
+    }
+
 
     return {
       freqOptionClicked,
@@ -58,10 +77,17 @@ export default {
       removeIncome,
       handleKeyDown,
       labelColor: computed(() => !!props.errorMessage && (income.value.name === null || income.value.amount === null) ? 'red' : 'darkgrey'),
+      changeOrderPositionLeft,
+      changeOrderPositionRight,
+      props,
+      incomeOrderLeftColor: computed(() => props.id !== 0 ? 'black' : 'lightgrey'),
+      incomeOrderRightColor: computed(() => props.id !== store.state?.data?.incomes?.length - 1 ? 'black' : 'lightgrey'),
+      incomeOrderLeftCursor: computed(() => props.id !== 0 ? 'pointer' : ''),
+      incomeOrderRightCursor: computed(() => props.id !== store.state?.data?.incomes?.length - 1 ? 'pointer' : ''),
     }
   },
   components: {
-    Dropdown, WindowClose
+    Dropdown, WindowClose, ChevronLeft, ChevronRight
   }
 }
 </script>
@@ -78,7 +104,7 @@ export default {
   border-radius: 8px;
   padding: 20px;
   background-color: white;
-  height: 156px;
+  height: 160px;
 }
 
 .incomeTopBar {
@@ -109,4 +135,26 @@ export default {
 /*  transform: translate3d(-16px, -27px, 0) scale3d(1, 1, 1);*/
 /*  color: v-bind(labelColor);*/
 /*}*/
+
+.incomeOrderContainer {
+  display: flex;
+  justify-content: center;
+  cursor: default;
+}
+
+.incomeOrderLeft {
+  cursor: v-bind(incomeOrderLeftCursor);
+  color: v-bind(incomeOrderLeftColor);
+  margin-right: 2px;
+}
+
+.incomeOrderRight {
+  cursor: v-bind(incomeOrderRightCursor);
+  color: v-bind(incomeOrderRightColor);
+  margin-left: 2px;
+}
+
+.incomeOrderNumber {
+  font-size: 14px;
+}
 </style>
