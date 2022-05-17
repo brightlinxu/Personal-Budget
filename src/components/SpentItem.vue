@@ -14,7 +14,7 @@
 
 <script>
 import { ref } from 'vue';
-import Modal from "@/components/Modal";
+// import Modal from "@/components/Modal";
 
 export default {
   props: ['id', 'item'],
@@ -42,7 +42,7 @@ export default {
   },
   emits: ['removeSpentItem'],
   components: {
-    Modal
+    // Modal
   }
 }
 </script>
