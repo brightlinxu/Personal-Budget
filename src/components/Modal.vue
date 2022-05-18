@@ -38,7 +38,7 @@ export default {
 .modal {
   text-align: center;
   background-color: white;
-  padding: 200px;
+  padding: 150px;
   border-radius: 30px;
 }
 </style>
