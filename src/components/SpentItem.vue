@@ -41,18 +41,11 @@ export default {
     watch(modalOpen, (curVal) => {
       if (curVal) { // modal open
         document.body.style.overflow = 'hidden'
-        window.addEventListener('scroll', noScroll);
       }
       else {
         document.body.style.overflow = 'visible'
-        window.removeEventListener('scroll', noScroll);
       }
     });
-
-
-    function noScroll() {
-      window.scrollTo(0, 0);
-    }
 
     return {
       hover,
