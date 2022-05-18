@@ -1,21 +1,21 @@
 <template>
   <div class="modalOverlay">
-    <div class="modal" v-click-away="onClickAway">
-      hi
+    <div class="modal" v-click-away="clickAway">
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ['removeSpentItem'],
-  setup() {
-    const onClickAway = () => {
-
+  emits: ['clickAway'],
+  setup(props, { emit }) {
+    const clickAway = () => {
+      emit('clickAway');
     }
 
     return {
-      onClickAway
+      clickAway
     }
   }
 }
@@ -31,8 +31,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
 }
 
 .modal {

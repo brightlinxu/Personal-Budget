@@ -77,7 +77,6 @@ export default {
 .fixedContainer {
   position: sticky;
   top: 0;
-  width: 100vw;
   z-index: 1000;
   transition: 0.3s;
   color: #333;

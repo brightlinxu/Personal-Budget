@@ -7,14 +7,16 @@
       <div @click='removeSpentItem' class='delete'>Delete</div>
     </div>
   </div>
-<!--  <Modal>-->
-<!--    hi-->
-<!--  </Modal>-->
+  <Transition name="spentItemModalContainer">
+    <Modal v-if="modalOpen" @clickAway="handleClickAway">
+      temp
+    </Modal>
+  </Transition>
 </template>
 
 <script>
-import { ref } from 'vue';
-// import Modal from "@/components/Modal";
+import { ref, watch } from 'vue';
+import Modal from "@/components/Modal";
 
 export default {
   props: ['id', 'item'],
@@ -32,17 +34,33 @@ export default {
       modalOpen.value = true;
     }
 
+    const handleClickAway = () => {
+      modalOpen.value = false;
+    }
+
+    watch(modalOpen, (curVal) => {
+      if (curVal) { // modal open
+        document.body.style.overflow = 'hidden'
+      }
+      else {
+        document.body.style.overflow = 'visible'
+      }
+    });
+
     return {
       hover,
       clicked,
       showTransition,
       removeSpentItem,
-      optionsClicked
+      optionsClicked,
+      handleClickAway,
+      modalOpen,
+      props
     }
   },
   emits: ['removeSpentItem'],
   components: {
-    // Modal
+    Modal
   }
 }
 </script>
@@ -111,5 +129,14 @@ export default {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.spentItemModalContainer-enter-active,
+.spentItemModalContainer-leave-active {
+  transition: 0.3s ease;
+}
+.spentItemModalContainer-enter-from,
+.spentItemModalContainer-leave-to {
+  opacity: 0;
 }
 </style>
