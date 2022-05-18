@@ -9,7 +9,7 @@
   </div>
   <Transition name="spentItemModalContainer">
     <Modal v-if="modalOpen" @clickAway="handleClickAway">
-      hi
+      Feature coming soon!
     </Modal>
   </Transition>
 </template>
