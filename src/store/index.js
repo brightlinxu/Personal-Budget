@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { auth, db } from '../firebase/config.js';
-import { setDoc, getDoc, doc, onSnapshot } from 'firebase/firestore';
+import { setDoc, getDoc, doc, /*onSnapshot*/ } from 'firebase/firestore';
 import { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -109,10 +109,11 @@ const unsub = onAuthStateChanged(auth, (authData) => {
   store.commit('setDataIsReady', false);
   let url = window.location.pathname;
   if (authData) { // user is logged in
-    onSnapshot(doc(db, 'users', authData.uid), (snapshot) => {
-      store.commit('setData', snapshot.data(), false);
-      store.commit('setDataIsReady', true);
-    });
+    syncData();
+    // onSnapshot(doc(db, 'users', authData.uid), (snapshot) => {
+    //   store.commit('setData', snapshot.data(), false);
+    //   store.commit('setDataIsReady', true);
+    // });
     
     // redirect user to '/budget'
     if (url === '/') {
@@ -129,7 +130,7 @@ const unsub = onAuthStateChanged(auth, (authData) => {
   unsub();
 });
 
-// manually sync everything in store.state.data with 
+// manually sync everything in store.state.data with database
 const syncData = () => {
   if (store.state.authData) {
     store.commit('setDataIsReady', false);
