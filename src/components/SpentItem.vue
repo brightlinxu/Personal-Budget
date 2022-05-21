@@ -195,7 +195,7 @@ export default {
 }
 
 .individualItemModalContainer {
-  margin: 10px 20px;
+  margin: 12px 20px 20px 20px;
 }
 
 .spentItemModalInputWithTextContainer {
