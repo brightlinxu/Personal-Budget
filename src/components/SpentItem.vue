@@ -19,6 +19,9 @@
             Amount:
             <div :class="{ spentItemModalInputContainer: true, spentItemModalInputContainerColor: inputAmountFocus }" @focusin="handleFocusChange('amount')" @focusout="handleFocusChange('amount')"><input type='text' v-model='spentItemCopy.amount' class="spentItemModalInput"></div>
           </div>
+          <div class="spentItemModalAddTagContainer">
+            + Tag (feature coming soon!)
+          </div>
 <!--          <button class="hiddenButton"/>-->
         </form>
       </div>
@@ -224,5 +227,12 @@ export default {
 .spentItemModalInput {
   padding: 6px 10px;
   font-size: 16px;
+}
+
+.spentItemModalAddTagContainer {
+  display: flex;
+  margin-top: 15px;
+  font-size: 15px;
+  color: #aaaaaa;
 }
 </style>
