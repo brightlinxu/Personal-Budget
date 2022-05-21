@@ -3,59 +3,112 @@
     <div class='cutOverflow'>{{ item.label }}</div>
     <div :class='{ itemRightContainer: true, rightBefore: !hover || !clicked }'>
       <div class='leftSide'>${{ item.amount.toFixed(2) }}</div>
-      <div @click='optionsClicked' class='options'>Options</div>
+      <div @click='editClicked' class='options'>Edit</div>
       <div @click='removeSpentItem' class='delete'>Delete</div>
     </div>
   </div>
   <Transition name="spentItemModalContainer">
-    <Modal v-if="modalOpen" @clickAway="handleClickAway">
-      Feature coming soon!
+    <Modal v-if="modalOpen" @closeModal="handleCloseModal" @saveModal="handleSaveModal" :isPhoneWidth="isPhoneWidth" title="Edit">
+      <div class="individualItemModalContainer">
+        <form @submit.prevent="handleSaveModal" class="spentItemModalForm">
+          <div class="spentItemModalInputWithTextContainer">
+            Item:
+            <div :class="{ spentItemModalInputContainer: true, spentItemModalInputContainerColor: inputLabelFocus }" @focusin="handleFocusChange('label')" @focusout="handleFocusChange('label')"><input type='text' v-model='spentItemCopy.label' class="spentItemModalInput"></div>
+          </div>
+          <div class="spentItemModalInputWithTextContainer">
+            Amount:
+            <div :class="{ spentItemModalInputContainer: true, spentItemModalInputContainerColor: inputAmountFocus }" @focusin="handleFocusChange('amount')" @focusout="handleFocusChange('amount')"><input type='text' v-model='spentItemCopy.amount' class="spentItemModalInput"></div>
+          </div>
+<!--          <button class="hiddenButton"/>-->
+        </form>
+      </div>
     </Modal>
   </Transition>
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
+import { useStore } from "vuex";
 import Modal from "@/components/Modal";
+import {updateData} from "@/firebase/functions";
 
 export default {
-  props: ['id', 'item'],
+  props: ['budgetBoxId', 'id', 'item', 'isPhoneWidth'],
   setup(props, { emit }) {
+    const store = useStore();
+
+    const spentItemCopy = ref({ ...store.state.data.budgetAreas[props.budgetBoxId].spent[props.id] });
+
     const hover = ref(false);
     const clicked = ref(false);
     const showTransition = ref(false);
     const modalOpen = ref(false);
 
+    const inputLabelFocus = ref(false);
+    const inputAmountFocus = ref(false);
+
     const removeSpentItem = () => {
       emit('removeSpentItem', props.id);
     }
 
-    const optionsClicked = () => {
+    const editClicked = () => {
       modalOpen.value = true;
     }
 
-    const handleClickAway = () => {
+    const handleCloseModal = () => {
+      modalOpen.value = false;
+
+      // reset copy back to what's in the store
+      spentItemCopy.value = { ...store.state.data.budgetAreas[props.budgetBoxId].spent[props.id] };
+    }
+
+    const handleSaveModal = () => {
+      console.log('handle save modal');
+      const storeData = { ...store.state.data };
+
+      // check that amount is inputted in correct format and convert to number
+      let amount = parseFloat(spentItemCopy.value.amount);
+      if (amount.toFixed(2) - amount !== 0) {
+        console.log('Money amount has to be 2 decimals or less')
+        return;
+      }
+      spentItemCopy.value.amount = amount;
+
+      // update store with data
+      storeData.budgetAreas[props.budgetBoxId].spent[props.id] = { ...spentItemCopy.value };
+      store.commit('setData', storeData);
+
+      // update database with data
+      updateData(store, store.state.data)
+
+      // close modal
       modalOpen.value = false;
     }
 
-    watch(modalOpen, (curVal) => {
-      if (curVal) { // modal open
-        document.body.style.overflow = 'hidden'
+    const handleFocusChange = (type) => {
+      if (type === 'label') {
+        inputLabelFocus.value = !inputLabelFocus.value;
       }
-      else {
-        document.body.style.overflow = 'visible'
+      else if (type === 'amount') {
+        inputAmountFocus.value = !inputAmountFocus.value;
       }
-    });
+    }
+
 
     return {
       hover,
       clicked,
       showTransition,
       removeSpentItem,
-      optionsClicked,
-      handleClickAway,
+      editClicked,
+      handleCloseModal,
       modalOpen,
-      props
+      props,
+      spentItemCopy,
+      inputLabelFocus,
+      inputAmountFocus,
+      handleFocusChange,
+      handleSaveModal
     }
   },
   emits: ['removeSpentItem'],
@@ -91,12 +144,13 @@ export default {
   transition: 0.08s linear;
   /*overflow: hidden;*/
 }
+
 .rightBefore {
-  margin-right: -134px;
+  margin-right: -113px;
 }
 
 .options {
-  padding: 0 7px;
+  padding: 0 10px;
   margin: 0px -10px 0px 10px;
   position: relative;
   color: #0369a1;
@@ -108,7 +162,7 @@ export default {
 
 .delete {
   padding: 0 7px;
-  margin: 0px -11px 0px 10px;
+  margin: 0px -10px 0px 10px;
   border-radius: 0px 6px 6px 0px;
   position: relative;
   color: red;
@@ -138,5 +192,37 @@ export default {
 .spentItemModalContainer-enter-from,
 .spentItemModalContainer-leave-to {
   opacity: 0;
+}
+
+.individualItemModalContainer {
+  margin: 10px 20px;
+}
+
+.spentItemModalInputWithTextContainer {
+  text-align: left;
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.spentItemModalInputContainer {
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 2px;
+  transition: 0.2s ease;
+}
+
+.spentItemModalInputContainerColor {
+  border: 1px solid #666 !important;
+}
+
+.spentItemModalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.spentItemModalInput {
+  padding: 6px 10px;
+  font-size: 16px;
 }
 </style>

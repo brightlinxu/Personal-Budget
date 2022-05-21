@@ -1,6 +1,6 @@
 <template>
   <div v-if='store.authIsReady && store.dataIsReady'>
-    <BudgetBoxes />
+    <BudgetBoxes :isPhoneWidth="isPhoneWidth"/>
     <div @click='redirectHistory' class='historyContainer'>
       <div class='buttonStyle2' style='width: 51px;'>History</div>
     </div>
@@ -50,7 +50,7 @@ export default {
     return { 
       store: computed(() => store.state),
       redirectHistory,
-      isPhoneWidth: computed(() => windowWidth.value < 735),
+      isPhoneWidth: computed(() => windowWidth.value < 720),
     };
   },
   components: {

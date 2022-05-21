@@ -4,6 +4,7 @@
       v-for='(elt, i) in store.data.budgetAreas'
       :key='i'
       :id='i'
+      :isPhoneWidth="isPhoneWidth"
     />
   </div>
   <div v-else class='noBudgetsContainer'>
@@ -22,6 +23,7 @@ import { useRouter } from "vue-router";
 import BudgetBox from './BudgetBox.vue';
 
 export default {
+  props: ['isPhoneWidth'],
   setup() {
     const store = useStore();
     const router = useRouter();

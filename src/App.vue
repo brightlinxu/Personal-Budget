@@ -128,6 +128,13 @@ button {
   -ms-user-select: none;
 }
 
+.hiddenButton {
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
 
 /*for settings page*/
 .floatingInput {

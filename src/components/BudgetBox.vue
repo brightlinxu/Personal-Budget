@@ -30,7 +30,7 @@
     </div>
     <div class='overflow-container'>
       <SpentItem v-for='(elt, i) in area.spent' :key='i' @removeSpentItem='handleRemoveSpentItem'
-        :id='i' :item='elt'
+        :id='i' :item='elt' :isPhoneWidth="isPhoneWidth" :budgetBoxId="id"
       />
     </div>
     <div class='daysLeftText'>{{ timeUntilReset }} day{{ timeUntilReset === 1 ? '' : 's' }} left</div>
@@ -50,7 +50,7 @@ import { getBudgetAreaTotalUsed, getDate, getDateDifference, getFirstDayOfWeek, 
 import ArrowULeftTop from 'vue-material-design-icons/ArrowULeftTop.vue'
 
 export default {
-  props: ['id'],
+  props: ['id', 'isPhoneWidth'],
   setup(props) {
     const store = useStore();
 
