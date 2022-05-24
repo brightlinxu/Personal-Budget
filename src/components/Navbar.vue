@@ -6,7 +6,17 @@
         <LoginButton />
         <SignupButton />
       </div>
-      <div v-else class='rightSide'> <!-- logged in -->
+      <div v-else-if="isPhoneWidth" class='rightSide'> <!-- logged in -->
+        <div v-if='dataIsReady && data' style='margin: 5px 13px;'>Hi {{ data.firstName }}!</div>
+        <div @click='toggleDropdown' v-click-away="onClickAway" :class="{ navbarMenuIcon: true, navbarMenuContentsOpen: menuOpen }"><Menu :size="22"/></div>
+        <transition name="dropdown">
+          <div v-if="menuOpen" class="navbarMenuContents">
+            <div @click='handleRedirectSettings' class='navbarMenuContent'>Settings</div>
+            <LogoutButton class="navbarMenuContent" :usingCustomStyle="true"/>
+          </div>
+        </transition>
+      </div>
+      <div v-else class='rightSide'>
         <div v-if='dataIsReady && data' style='margin: 5px 13px;'>Hi {{ data.firstName }}!</div>
         <div @click='handleRedirectSettings' class='buttonStyle' style='margin: 0px 3px;'>Settings</div>
         <LogoutButton />
@@ -22,6 +32,7 @@ import LogoutButton from './LogoutButton.vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { computed, ref, onMounted, onUnmounted } from 'vue';
+import Menu from 'vue-material-design-icons/Menu.vue'
 
 export default {
   setup() {
@@ -29,6 +40,8 @@ export default {
     const router = useRouter();
 
     const scrollPosition = ref();
+    const windowWidth = ref();
+    const menuOpen = ref(false);
 
     const handleRedirectHome = () => {
       if (store.state.authData === null) {
@@ -49,12 +62,27 @@ export default {
       scrollPosition.value = window.scrollY;
     }
 
+    const toggleDropdown = () => {
+      menuOpen.value = !menuOpen.value;
+    }
+
+    const onClickAway = () => {
+      menuOpen.value = false;
+    }
+
+    const handleWindowResize = () => {
+      windowWidth.value = window.innerWidth;
+    }
+
     onMounted(() => {
       window.addEventListener('scroll', updateScrollPosition);
+      window.addEventListener('resize', handleWindowResize);
+      handleWindowResize();
     });
 
     onUnmounted(() => {
       window.removeEventListener('scroll', updateScrollPosition);
+      window.removeEventListener('resize', handleWindowResize)
     });
 
     return {
@@ -64,11 +92,15 @@ export default {
       dataIsReady: computed(() => store.state.dataIsReady),
       handleRedirectSettings,
       handleRedirectHome,
-      scrollPosition
+      scrollPosition,
+      toggleDropdown,
+      menuOpen,
+      onClickAway,
+      isPhoneWidth: computed(() => windowWidth.value < 720),
     }
   },
   components: {
-    LoginButton, SignupButton, LogoutButton
+    LoginButton, SignupButton, LogoutButton, Menu
   }
 }
 </script>
@@ -94,5 +126,52 @@ export default {
 
 .rightSide {
   display: flex;
+}
+
+.navbarMenuIcon {
+  width: 22px;
+  height: 22px;
+  margin: 1.5px 5px 0 5px;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 3px;
+}
+.navbarMenuIcon:hover {
+  background-color: #ddd;
+}
+.navbarMenuContentsOpen {
+  background-color: #ddd;
+}
+
+.navbarMenuContents {
+  position: absolute;
+  transform: translate(19px, 36px);
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  z-index: 99;
+  width: 100px;
+  overflow: hidden;
+}
+
+.navbarMenuContent {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.navbarMenuContent:hover {
+  background-color: #f3f4f6;
+}
+.navbarMenuContent:active {
+  background-color: #e5e7eb;
+}
+
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.2s;
+}
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translate(19px, 31px);
 }
 </style>

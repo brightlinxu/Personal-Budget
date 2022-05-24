@@ -1,5 +1,5 @@
 <template>
-  <div @click='handleClick' class='buttonStyle' style='margin: 0px 3px;'>Logout</div>
+  <div @click='handleClick' :class='{ buttonStyle: !usingCustomStyle, logoutButton: !usingCustomStyle }'>Logout</div>
 </template>
 
 <script>
@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 export default {
+  props: ['usingCustomStyle'],
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -23,6 +24,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.logoutButton {
+  margin: 0 3px;
+}
 </style>
